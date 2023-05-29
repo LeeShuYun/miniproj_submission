@@ -1,0 +1,43 @@
+<div class="banner">
+  <!-- <img src="{{ '../../assets/' + img }}" class="piximage"> -->
+  <img [src]="bgImage" class="piximage">
+
+  <div class="overlay-pet">
+
+    <img class="player-pet"
+      src="{{'../assets/pets/' + playerStateSvc.sharedNode.petimage}}"
+      alt="your pet image">
+
+  </div>
+
+  <div class="overlay-character">
+    <img
+      src="{{'../assets/character/' + playerStateSvc.sharedNode.image}}"
+      alt="character">
+
+    <div class="hpbar d-flex">
+      <span class="gradient-text">HP</span>
+      <span class="on-light">
+        <progress class="border-gradient border-gradient-purple" id="health"
+          [value]="playerStateSvc.sharedNode.health" max="100"></progress>
+      </span>
+    </div>
+
+  </div>
+
+  <div class="overlay-enemy">
+    <img
+      src="{{'../assets/character/enemy.webp'}}"
+      alt="character">
+
+    <div class="hpbar d-flex">
+      <span class="gradient-text">HP</span>
+      <span class="on-light">
+        <progress class="border-gradient border-gradient-purple" id="health"
+          [value]="playerStateSvc.sharedNode.enemyhealth" max="100"></progress>
+      </span>
+    </div>
+
+  </div>
+
+</div>

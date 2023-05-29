@@ -1,0 +1,147 @@
+{
+  "configVersion": 1,
+  "timestamp": 1685287801755,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/Wheat_bg.png",
+        "/assets/bell.png",
+        "/assets/dragonicon.png",
+        "/assets/placeholder.jpg",
+        "/assets/profile-user.png",
+        "/assets/search.png",
+        "/assets/volume.png",
+        "/favicon.ico",
+        "/index.html",
+        "/main.3146292e7114c10f.js",
+        "/manifest.webmanifest",
+        "/polyfills.0e44c1008e00a721.js",
+        "/runtime.b74d0b05de58f3da.js",
+        "/styles.7d0a44c07ccc5b8a.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/.gitkeep copy",
+        "/assets/bg/library.avif",
+        "/assets/bg/login_bg.avif",
+        "/assets/bg/navbar_bg.webp",
+        "/assets/bg/register_bg.avif",
+        "/assets/bg/starry_bg.avif",
+        "/assets/character/character.avif",
+        "/assets/character/character.webp",
+        "/assets/character/enemy.webp",
+        "/assets/character/enemy.webp~",
+        "/assets/coin.gif",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/pets/R2D2.avif",
+        "/assets/pets/R2D2.webp",
+        "/assets/pets/cat.webp",
+        "/assets/pets/dog.webp",
+        "/assets/pets/dragon.avif",
+        "/assets/pets/dragon.webp",
+        "/assets/pets/kate-stone-matheson-uy5t-CJuIK4-unsplash.jpg",
+        "/assets/pets/kirby.avif",
+        "/assets/pets/kirby.webp",
+        "/assets/placeholder.jpg~",
+        "/assets/sound/super-mario-coin-sound.mp3",
+        "/library.cce51c9181fd2bed.avif",
+        "/login_bg.55abe9d716bc5227.avif",
+        "/register_bg.06bda4b898304051.avif",
+        "/starry_bg.9d4880a1bdc54527.avif"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/.gitkeep copy": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "/assets/Wheat_bg.png": "75b34b86a20c66a092f392b6d5ab44e42bfa0a48",
+    "/assets/bell.png": "2d5502507129459fc67ff36567fda97c5828ead4",
+    "/assets/bg/library.avif": "e27efb2cd38239bb9a0cd1042621d9085686069a",
+    "/assets/bg/login_bg.avif": "42fa5f153c3f088f8bbc4d59df0e6e8a33d0e696",
+    "/assets/bg/navbar_bg.webp": "26a20969b2b34d9f89bf3e769eccf469724542c9",
+    "/assets/bg/register_bg.avif": "14005f23b82908f0c7f0bbc432240bb99ea30421",
+    "/assets/bg/starry_bg.avif": "9b880d9b5944a8f4fa0a65caf5a9c8121903d53b",
+    "/assets/character/character.avif": "eaef0225915c5baf4ee20a355244988b065efa8b",
+    "/assets/character/character.webp": "56b78ddf0b5e61f28246d1d7011ed9e9235b73c7",
+    "/assets/character/enemy.webp": "de0259693d253a1957722fe1a569a3f32ebaf6a3",
+    "/assets/character/enemy.webp~": "9b24e7bf946254366f85923c63d08d258a1f3a33",
+    "/assets/coin.gif": "1320b9f4d9dfe0d76b4fdadb86d044fdf341e7a7",
+    "/assets/dragonicon.png": "ec5c277aca2e2a90bbd1a5d0d4dc9f1a5528f44a",
+    "/assets/icons/icon-128x128.png": "6c1194f9f7705e8d5b62dcb00b51c14a50824ce3",
+    "/assets/icons/icon-144x144.png": "47fdcecd5a28a72af3802ee8e60c3e8df8cbe3f0",
+    "/assets/icons/icon-152x152.png": "e8bdedcc39e5f7d386c6e03529616306a4dd4987",
+    "/assets/icons/icon-192x192.png": "d3b1b02956313e7907d6e919ff1f7c8781ca7cac",
+    "/assets/icons/icon-384x384.png": "6d31c387de9d804f6970f1e1a3954adb4fe46591",
+    "/assets/icons/icon-512x512.png": "847f406bffddf17f66541b2a43be0df61d15dc3b",
+    "/assets/icons/icon-72x72.png": "0c77338a4f7a29ffd08793d18be7bbf13966d2e8",
+    "/assets/icons/icon-96x96.png": "248517067a78115a8fe4767a019346fee0dfc7df",
+    "/assets/pets/R2D2.avif": "cccaadcf9217837c979ab3c9cbc771a0b8a92fb9",
+    "/assets/pets/R2D2.webp": "e0b4a153efd653ddbe13400425edc1888fa2f994",
+    "/assets/pets/cat.webp": "9fcc97a003c932e390a5997ec81cf66e46438cae",
+    "/assets/pets/dog.webp": "39656823ac167cc30bbc22abebebc53c8788098c",
+    "/assets/pets/dragon.avif": "dfe7d55a50395f479bd0351532af0c2df1df3809",
+    "/assets/pets/dragon.webp": "0c7a79d2a18ec30c61a378257ef4b662fe3a1b7e",
+    "/assets/pets/kate-stone-matheson-uy5t-CJuIK4-unsplash.jpg": "be5ab5da56c9bbc1bbecbb37c281c5a0b8fee086",
+    "/assets/pets/kirby.avif": "a04aee60c7ffbfc86f6a43e220d6fa01c477c745",
+    "/assets/pets/kirby.webp": "908bcace0517adf86382597d2b99cfcf2e0be703",
+    "/assets/placeholder.jpg": "269c0f168f1796d0aef924f043d1da4864e9de2b",
+    "/assets/placeholder.jpg~": "64441100324e9c099eae6ced2aaa1afdf1bdead6",
+    "/assets/profile-user.png": "c255ace977e254a084fdd6ab95569d1002c33abe",
+    "/assets/search.png": "788fd232fa7c90b42038291278721158b0b13bb5",
+    "/assets/sound/super-mario-coin-sound.mp3": "83cc6c6ee9888bf708b66fea130f530d949146a0",
+    "/assets/volume.png": "2955b338533a5110d860925f70a1323375860cea",
+    "/favicon.ico": "4c956a3a1fe977e442e274ed9b418381ef4ef040",
+    "/index.html": "db3371e7c76f4613fa4f3661012cfa4edbd6a9b5",
+    "/library.cce51c9181fd2bed.avif": "e27efb2cd38239bb9a0cd1042621d9085686069a",
+    "/login_bg.55abe9d716bc5227.avif": "42fa5f153c3f088f8bbc4d59df0e6e8a33d0e696",
+    "/main.3146292e7114c10f.js": "244c4b278e06bfb9f8cafbbffb447f375e916f1e",
+    "/manifest.webmanifest": "6c69195a8c72495fa0319afa0f75136e3b9e7336",
+    "/polyfills.0e44c1008e00a721.js": "fa897ccb33fa0b81b8ed02322bd6793ddb61c46f",
+    "/register_bg.06bda4b898304051.avif": "14005f23b82908f0c7f0bbc432240bb99ea30421",
+    "/runtime.b74d0b05de58f3da.js": "ceeb57cc38efbb6a126d95895476470c6a02dfc1",
+    "/starry_bg.9d4880a1bdc54527.avif": "9b880d9b5944a8f4fa0a65caf5a9c8121903d53b",
+    "/styles.7d0a44c07ccc5b8a.css": "235247d7de8ae1ed93139ef8c649767c9e3a4bac"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

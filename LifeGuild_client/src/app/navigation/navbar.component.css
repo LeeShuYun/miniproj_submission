@@ -1,0 +1,40 @@
+.navbar {
+  background-color: var(--key-yellow);
+  height: 7.5em;
+}
+
+.icons {
+  padding: 5%;
+  /* background-color: blue; */
+  width: 38px;
+  height: 38px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin-left: 5%;
+  /* border: black 1px solid; */
+}
+
+.navbuttons {
+  margin-right: 150px;
+}
+
+.navlogo {
+  margin-left: 80px;
+}
+
+.navbar {
+  font-family: 'Sigmar', cursive;
+}
+
+.pagelayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.stickyfooter {
+  margin-top: auto;
+}

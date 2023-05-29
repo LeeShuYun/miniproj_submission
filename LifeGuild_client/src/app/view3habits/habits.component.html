@@ -1,0 +1,486 @@
+
+
+<app-banner>
+  <!-- <img src> -->
+</app-banner>
+
+<div class="container">
+  <h2>Habits</h2>
+  <div cdkDropList #habitsList="cdkDropList" [cdkDropListData]="habits"
+    [cdkDropListConnectedTo]="[dailiesList, habitsList]"
+    class="list"
+    (cdkDropListDropped)="drop($event)">
+    <form [formGroup]="habitsForm">
+      <input type="text"
+        formControlName="title"
+        (keydown.enter)="addItem('habitItem')"
+        placeholder="Add a habit"
+        class="forminputfield form-control">
+    </form>
+    <!-- if there's no rewards -->
+    <div *ngIf="habits.length <= 0" class=" d-flex justify-content-center">
+      <p class="task-prompts d-flex align-items-center justify-content-center">
+        Habits can be positive, negative or both. They
+        can be checked off multiple times a day.</p>
+    </div>
+    <div class="list-habit list-item d-flex align-self-stretch"
+      *ngFor="let habit of habits; let idx=index" cdkDrag>
+      <div class="btn btn-success" (click)="addToGoodCounter(idx)">+</div>
+      <div
+        class="justify-content-center align-self-center habit-limit-width word-wrap">
+        {{habit.title}} [{{habit.positiveCount - habit.negativeCount}}]
+      </div>
+
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example
+        icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item data-bs-toggle="modal"
+            data-bs-target="#editHabitsModal" (click)="selectHabit(idx)">
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteHabit(idx)">
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="btn btn-warning" (click)="addToBadCounter(idx)">-</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <h2>To Dos</h2>
+
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todos"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="list"
+    (cdkDropListDropped)="drop($event)">
+    <form [formGroup]="todosForm">
+      <input type="text"
+        formControlName="title"
+        (keydown.enter)="addItem('todoItem')"
+        placeholder="Add a To Do Task"
+        class="forminputfield form-control">
+    </form>
+    <!-- if there's no todos -->
+    <div *ngIf="todos.length <= 0" class=" d-flex justify-content-center">
+      <p class="task-prompts d-flex align-items-center justify-content-center">ToDos
+        are one time only tasks.</p>
+    </div>
+    <div class="list-item d-flex justify-content-between" *ngFor="let todo of
+      todos;let idx= index" cdkDrag>
+      <input
+        type="checkbox" id="twenty-to-twentynine" class="checkbox"
+        (click)="onCompleteToDo(idx)" [checked]="todo.isComplete">
+      <div class="align-self-center word-wrap todo-title">{{todo.title}}</div>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example
+        icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item data-bs-toggle="modal"
+            data-bs-target="#editToDoModal" (click)="selectTodo(idx)">
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteToDo(idx)">
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h2>Dailies</h2>
+  <div class="list-padding">
+    <div cdkDropList #dailiesList="cdkDropList" [cdkDropListData]="dailies"
+      [cdkDropListConnectedTo]="dailiesList" class="list"
+      (cdkDropListDropped)="drop($event)">
+      <form [formGroup]="dailiesForm">
+        <input type="text"
+          formControlName="title"
+          (keydown.enter)="addItem('dailyItem')"
+          placeholder="Add a daily"
+          class="forminputfield form-control">
+      </form>
+      <div *ngIf="dailies.length <= 0" class=" d-flex justify-content-center">
+        <p class="task-prompts d-flex align-items-center justify-content-center">
+          Dailies reset everyday.</p>
+      </div>
+      <div class="list-item d-flex justify-content-between"
+        *ngFor="let daily of dailies; let idx= index"
+        cdkDrag>
+        <input type="checkbox" id="twenty-to-twentynine" class="checkbox"
+          (click)="onCompleteDaily(idx)" [checked]="daily.isComplete">
+        <div class="align-self-center word-wrap daily-title">{{daily.title}}</div>
+        <div>
+          <button mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example
+          icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item data-bs-toggle="modal"
+              data-bs-target="#editDailyModal" (click)="selectDaily(idx)">
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteDaily(idx)">
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Rewards</h2>
+
+  <div cdkDropList #rewardsList="cdkDropList" [cdkDropListData]="rewards"
+    [cdkDropListConnectedTo]="[rewardsList]"
+    class="list "
+    (cdkDropListDropped)="drop($event)">
+    <form [formGroup]="rewardsForm">
+      <input type="text"
+        formControlName="title"
+        (keydown.enter)="addItem('rewardItem')"
+        placeholder="Add a reward"
+        class="forminputfield form-control">
+    </form>
+    <div *ngIf="rewards.length <= 0" class=" d-flex justify-content-center">
+      <p class="task-prompts d-flex align-items-center justify-content-center">
+        Rewards encourage you to keep to your habits</p>
+    </div>
+    <!-- special reward games section unlock -->
+    <div *ngIf="isGameSectionLocked"
+      class="list-item d-flex justify-content-between games-section-unlock"
+      cdkDrag>
+      <div
+        class=" justify-content-center align-self-center reward-title word-wrap">
+        Unlock Games Section
+      </div>
+      <button (click)="unlockGamesSection(30)"
+        class="btn btn-warning coin-button d-flex justify-content-center
+        flex-column">
+        <img src="{{'../assets/coin.gif'}}"
+          class="reward-coin">
+        <div>30</div>
+      </button>
+
+    </div>
+    <!-- reward  -->
+    <div class="list-item d-flex justify-content-between" *ngFor="let reward of
+      rewards; let idx= index" cdkDrag>
+
+      <div
+        class="justify-content-center align-self-center reward-title word-wrap">
+        {{reward.title}}
+      </div>
+
+      <div>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu"
+          aria-label="Example
+        icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item data-bs-toggle="modal"
+            data-bs-target="#editRewardModal" (click)="selectReward(idx)">
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteReward(idx)">
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+
+      </div>
+
+      <button (click)="buyReward(idx)"
+        class="btn btn-warning coin-button d-flex justify-content-center
+        flex-column">
+        <img src="{{'../assets/coin.gif'}}"
+          class="reward-coin">
+        <div>{{reward.cost}}</div>
+      </button>
+
+    </div>
+    <!-- end rewards -->
+
+  </div>
+</div>
+
+<!-- Habits Edit Modal -->
+<div class="modal fade" id="editHabitsModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editing Habit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="saveEditHabit()" [formGroup]="habitsEditForm">
+
+          <input type="hidden" id="arrayid"
+            formControlName="arrayid"
+            class="forminputfield form-control">
+
+          <input type="hidden" id="habitid"
+            formControlName="habitid"
+            class="forminputfield form-control">
+
+          <label for="title">Title: </label>
+          <input type="text" id="title"
+            formControlName="title" placeholder="Description of task"
+            class="forminputfield form-control">
+
+          <br>
+
+          <label for="isGoodorBadHabit">Good or Bad Habit: </label>
+          <!-- <input type="text" id="isGoodorBadHabit"
+            formControlName="isGoodorBadHabit" placeholder="Description of task"
+            class="forminputfield form-control"> -->
+          <mat-radio-group formControlName="isGoodorBadHabit">
+            <mat-radio-button value="good">
+              Good
+            </mat-radio-button>
+            <mat-radio-button value="bad">
+              Bad
+            </mat-radio-button>
+            <mat-radio-button value="both">
+              Both
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <br>
+
+          <label for="difficulty">Difficulty: </label>
+          <mat-radio-group formControlName="difficulty">
+            <mat-radio-button value="low">
+              Low
+            </mat-radio-button>
+            <mat-radio-button value="med">
+              Medium
+            </mat-radio-button>
+            <mat-radio-button value="high">
+              High
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <br>
+
+          <input type="hidden" id="positiveCount" name="positiveCount"
+            formControlName="positiveCount"
+            class="forminputfield form-control">
+
+          <input type="hidden" id="negativeCount" name="negativeCount"
+            formControlName="negativeCount"
+            class="forminputfield form-control">
+
+          <input type="hidden" id="dateCreated"
+            formControlName="dateCreated"
+            class="forminputfield form-control">
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="saveEditHabit()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dailies Edit Modal -->
+<div class="modal fade" id="editDailyModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editing Daily</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="saveEditDaily()" [formGroup]="dailiesEditForm">
+          <input type="hidden"
+            formControlName="arrayid"
+            class="forminputfield form-control">
+          <input type="hidden"
+            formControlName="dailyid"
+            class="forminputfield form-control">
+
+          <input type="text"
+            formControlName="title"
+            placeholder="Add a daily"
+            class="forminputfield form-control">
+          <br>
+          <label for="difficulty">Difficulty: </label>
+          <mat-radio-group formControlName="difficulty">
+            <mat-radio-button value="low">
+              Low
+            </mat-radio-button>
+            <mat-radio-button value="med">
+              Medium
+            </mat-radio-button>
+            <mat-radio-button value="high">
+              High
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-checkbox formControlName="isComplete">
+            Completed
+          </mat-checkbox>
+
+          <input type="hidden"
+            formControlName="dateCreated"
+            class="forminputfield form-control">
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+          data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-primary"
+          (click)="saveEditDaily()">
+          Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ToDo Edit Modal -->
+<div class="modal fade" id="editToDoModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editing ToDo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="todosEditForm">
+          <input type="hidden" formControlName="arrayid"
+            placeholder="arrayid"
+            class="forminputfield form-control">
+
+          <input type="hidden" formControlName="todoid"
+            class="forminputfield form-control">
+
+          <label for="title">Title: </label>
+          <input type="text" id="title"
+            formControlName="title" placeholder="Description of task"
+            class="forminputfield form-control">
+          <!-- <div *ngIf="isControlInvalid('priority','todosEditForm')" class="error">
+              Please add a description of your task.
+            </div> -->
+          <br>
+
+          <label for="difficulty">Difficulty: </label>
+          <mat-radio-group formControlName="difficulty">
+            <mat-radio-button value="low">
+              Low
+            </mat-radio-button>
+            <mat-radio-button value="med">
+              Medium
+            </mat-radio-button>
+            <mat-radio-button value="high">
+              High
+            </mat-radio-button>
+          </mat-radio-group>
+          <!-- <input type="text" id="toDosEditCost"
+            formControlName="difficulty"
+            class="forminputfield form-control"> -->
+          <br>
+          <br>
+          <label for="dueDate">Due Date: </label>
+          <input type="date" formControlName="dueDate"
+            class="forminputfield form-control">
+          <br>
+          <!-- <label for="isComplete">Is Completed </label> -->
+          <mat-checkbox formControlName="isComplete">
+            Completed
+          </mat-checkbox>
+          <!-- <input type="text" formControlName="isComplete"
+            placeholder
+            class="forminputfield form-control"> -->
+
+          <input type="hidden" formControlName="dateCreated"
+            class="forminputfield form-control">
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+          data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="saveEditToDo()">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reward Edit Modal -->
+<div class="modal fade" id="editRewardModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editing Reward</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="rewardsEditForm">
+          <input type="hidden" id="arrayid" name="arrayid"
+            formControlName="arrayid"
+            placeholder="arrayid"
+            class="forminputfield form-control">
+
+          <input type="hidden" id="rewardid" name="rewardid"
+            formControlName="rewardid"
+            placeholder="rewardid"
+            class="forminputfield form-control">
+
+          <label for="dailyEditTitle">Title: </label>
+          <input type="text" id="title"
+            formControlName="title" placeholder="Description of task"
+            class="forminputfield form-control">
+          <br>
+
+          <label for="cost">Cost: </label>
+          <input type="text" id="cost"
+            formControlName="cost"
+            placeholder="How much doing the task earns"
+            class="forminputfield form-control">
+
+          <input type="hidden" formControlName="dateCreated"
+            placeholder="Date created"
+            class="forminputfield form-control">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+          data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="saveEditReward()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

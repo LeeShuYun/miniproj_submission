@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:wght@600&family=Sigmar&family=VT323&display=swap');
+
+html,
+body {
+  height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif; */
+  /* font-family: 'Wix Madefor Text', sans-serif; */
+  /* font-family: 'VT323', monospace; */
+  font-family: 'Sigmar', cursive;
+}
+
+:root {
+  --key-yellow: #FFD337;
+  --font-color: #2F2F2C;
+  --yellow-highlight: #FFE58D;
+  --yellow-dark: hsl(var(--primary) 20% 75%);
+  --bg-blue: #1B4081;
+  --bg-red: #D91530;
+  --white-rgb: 240, 240, 240;
+}

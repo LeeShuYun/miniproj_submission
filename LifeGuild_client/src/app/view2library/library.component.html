@@ -1,0 +1,27 @@
+<div class="background">
+
+  <div class="row height d-flex justify-content-center align-items-center">
+
+    <div class="col-md-6">
+
+      <div class="form">
+        <h1 class="pixfont d-flex justify-content-center">GooGooBooks</h1>
+        <form class="form" [formGroup]="form" (ngSubmit)="submitForm()">
+          <img src="{{img}}" class="fa fa-search searchicon">
+          <input type="text" class="form-control form-input"
+            placeholder="Search for a book..."
+            formControlName="search">
+
+          <div class="d-flex justify-content-center">
+            <button type="submit" [disabled]="form.invalid"
+              class="btn btn-warning ">Search</button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

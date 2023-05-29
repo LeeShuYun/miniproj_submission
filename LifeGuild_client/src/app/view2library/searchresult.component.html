@@ -1,0 +1,74 @@
+<div class="background">
+
+  <div class="nav-padding">
+
+    <div class="d-flex justify-content-center">
+      <!-- <h1> Search Result for {{query}}</h1> -->
+      <button [routerLink]="['/landing', 'library']" class="btn btn-primary">Back</button>
+    </div>
+    <div class="d-flex justify-content-center font-white">
+      <h1>Search Results: {{startIndex}} to {{startIndex+30}}</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-primary"
+        (click)="paginateBooks(-30)">Prev</button>
+      <div> </div>
+      <button type="button" class="btn btn-primary"
+        (click)="paginateBooks(30)">Next</button>
+    </div>
+  </div>
+
+  <div *ngIf="bookList.length> 0; else noData" class="container">
+
+    <!-- <table *ngFor="let book of bookList">
+    <a [href]="book.previewUrl" target="_blank">
+      <td>
+        <img [src]="book.imgUrl != 'none' ? book.imgUrl :
+        placeholderImg">
+        <ng-template #placeholderImg>
+          <td><img src="{{placeholderImg}}" /></td>
+        </ng-template>
+      </td>
+      <td>
+        <h2>Title: {{book.title}}</h2>
+        <h6>Summary: {{book.description}}</h6>
+        <button type="button" [routerLink]="['/comment', book.title]">Comment</button>
+      </td>
+    </a>
+  </table> -->
+
+    <!-- new card -->
+    <div *ngFor="let book of bookList">
+
+      <a [href]="book.externalUrl" target="_blank" class="gx-5">
+        <div class="card text-bg-dark">
+          <img [src]="book.imgUrl != 'none' ? book.imgUrl : placeholderImg"
+            class="card-img" alt="...">
+          <div class="card-img-overlay overlay ">
+            <h3 class="card-title ">{{book.title}}</h3>
+            <p class="card-text cut-overflow">{{book.description | slice:0:200}}</p>
+            <p class="card-text "><small>Click to see preview!</small></p>
+          </div>
+
+          <div *ngTemplate #noImage>
+            <div class="card-img-overlay overlay ">
+              <h3 class="card-title ">{{book.title}}</h3>
+              <p class="card-text cut-overflow">{{book.description | slice:0:200}}</p>
+              <p class="card-text "><small>Click to see preview!</small></p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+    <!-- end new card -->
+  </div>
+
+  <ng-template #noData>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-warning" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+</div>

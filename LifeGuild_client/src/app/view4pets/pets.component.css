@@ -1,0 +1,77 @@
+ .pet-card {
+   width: 8em;
+   height: 10em;
+   /* border: 5px solid black; */
+ }
+
+ .container {
+   font-family: 'Sigmar', cursive;
+ }
+
+ /*
+h3, h2 {
+  font-family: 'Sigmar', cursive;
+  padding:4em auto;
+} */
+
+ .card {
+   image-rendering: pixelated;
+   border: 5px solid black;
+   margin: 5px;
+   /* border-radius: 0px; */
+   /* width: 9rem; */
+   font-family: 'Sigmar', cursive;
+   /* font-size: 0.9em; */
+ }
+
+ .dropdown-header {
+   margin: 1em auto;
+ }
+
+ .main-font {
+   font-family: 'Sigmar', cursive;
+ }
+ .larger-font {
+   font-size: 2em;
+ }
+
+ .background {
+   background: url(../../assets/bg/login_bg.avif) no-repeat scroll left center transparent;
+   background-size: cover;
+   /* background-size: auto 100% cover; */
+   image-rendering: pixelated;
+   height: 100vh;
+ }
+
+ .card-img-padding {
+   width: 50px;
+   height: 50px;
+   margin: auto 0px;
+ }
+
+ .marketplace-header {
+   text-align: center;
+   color: white;
+   background-color: black;
+ }
+
+ .marketplace-container {
+   margin: 5px;
+   text-align: center;
+   /* background-color: red; */
+ }
+
+ .pet-image {
+   width: 60px;
+   height: 60px;
+   margin: 8% 24% 0px 24%;
+   /* background-color: blue; */
+ }
+
+ .card-text {
+   color: black;
+ }
+
+ .pet-image-trade{
+  padding: 10px;
+}

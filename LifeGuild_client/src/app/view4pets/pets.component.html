@@ -1,0 +1,102 @@
+
+
+<!-- Heals: {{player.pethealing}}HP
+{{'../assets/pets/' +player.petimage}}
+{{player | json}}-->
+<div class="background">
+
+  <div class="container d-flex justify-content-center flex-column ">
+    <div class="marketplace-header text-center">
+    <h1 class="dropdown-header main-font text-center"> Adopt a Pet! </h1>
+</div>
+    <div class="d-flex gy-5 justify-content-center">
+      <div class="card" style="width: 8rem;">
+        <h2 class="main-font"> Your Pet </h2>
+        <img src="{{'../assets/pets/' +playerStateSvc.sharedNode.petimage}}"
+          class="card-img-top"
+          alt="your pet image">
+        <div class="card-body">
+          <p class="card-text">Heals: {{playerStateSvc.sharedNode.pethealing}}HP</p>
+        </div>
+      </div>
+    </div>
+    <!-- <button (click)="test()">Print player
+      {{player.pethealing}}</button> -->
+
+    <div class="marketplace-header">
+      <h1 class="dropdown-header main-font">Pet Marketplace</h1>
+    </div>
+    <div class="marketplace-container">
+      <div class="card-body">
+        <div class="d-flex flex-wrap  justify-content-center  ">
+          <div *ngFor="let pet of petForTradeList; let idx=index"
+            class>
+            <!-- pet card -->
+
+            <div class="card text-center pet-card"
+              (click)="selectPet(idx)"
+              data-bs-toggle="modal" data-bs-target="#tradeModal">
+              <img src="{{'../assets/pets/' + pet.image}}"
+                class="card-img-top pet-image"
+                alt="tradeable pet image">
+              <div class="card-body">
+                <!-- <p class="card-text">Heals: {{pet.healing}}HP</p> -->
+                <p class="card-text">Heals: {{pet.healing}}HP</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="tradeModal" tabindex="-1"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 main-font" id="exampleModalLabel">Trade for this
+              Pet?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body d-flex flex-row justify-content-evenly ">
+            <!-- start modal body  -->
+
+            <div class="card" style="width: 8rem;">
+              <img src="{{'../assets/pets/' + playerStateSvc.sharedNode.petimage}}"
+                class="card-img-top pet-image-trade"
+                alt="your pet image">
+              <div class="card-body">
+                <p class="card-text">Heals: {{playerStateSvc.sharedNode.pethealing}}HP</p>
+              </div>
+            </div>
+
+            <div class="align-self-center main-font larger-font "> FOR </div>
+
+            <div class="card" style="width: 8rem;">
+              <img src="{{'../assets/pets/' + tradeablePet.image}}"
+                class="card-img-top pet-image-trade"
+                alt="your pet image">
+              <div class="card-body">
+                <p class="card-text">Heals: {{tradeablePet.healing}}HP</p>
+              </div>
+            </div>
+
+            <!-- end modal body -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary"
+              data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+              (click)="tradePet()">Trade</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal end -->
+
+  </div>
+</div>

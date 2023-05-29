@@ -1,0 +1,60 @@
+<div class= "background">
+
+
+<div class="d-flex justify-content-center pushdown">
+  <div id="carouselExampleInterval" class="carousel slide carousel-size shadow"
+    data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="{{activeGame.images}}" class="d-block w-100" alt="...">
+      </div>
+      <div *ngFor="let game of featuredGames">
+        <div class="carousel-item" data-bs-interval="2000">
+          <img src="{{game.images}}" class="d-block w-100" alt="...">
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button"
+      data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button"
+      data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<!-- smaller cards -->
+<div *ngIf="gameList.length> 0; else noData" class="container">
+  <div *ngFor="let game of gameList" class="inner-container">
+
+    <a [href]="game.externalUrl" target="_blank" class="gx-5">
+      <div class="card text-bg-dark">
+        <img [src]="game.imgUrl != 'none' ? game.imgUrl : placeholderImg"
+          class="card-img" alt="...">
+        <div class="card-img-overlay overlay ">
+          <h3 class="card-title ">{{game.title}}</h3>
+          <!-- <p class="card-text cut-overflow ">{{game.description | slice:0:200}}</p> -->
+          <p class="card-text cut-overflow "><small>Click to go to their page!</small></p>
+        </div>
+
+        <div *ngTemplate #noImage>
+          <div class="card-img-overlay overlay ">
+            <h3 class="card-title ">{{game.title}}</h3>
+            <!-- <p class="card-text cut-overflow ">{{game.description | slice:0:200}}</p> -->
+            <p class="card-text cut-overflow "><small>Click to go to their page!</small></p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+<ng-template #noData class="d-flex justify-content-center">
+  <h3> Your search produces no result </h3>
+</ng-template>
+
+</div>

@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand navlogo">
+      <img src="../../assets/dragonicon.png" alt="logo of brand" class="logo">
+      LifeGuild
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing','habits']">Habits</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing','pets']">Pets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing','library']">Library</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://t.me/LifeGuildBot?start=hello">TelegramBot</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing','credits']">Credits</a>
+        </li> -->
+
+        <li>
+          <a class="nav-link"
+            href="mailto:support@lifeguild.fun?subject=AboutLifeRPG"> Contact
+            Us</a>
+        </li>
+        <li>
+          <!-- <a class="nav-link"
+            [routerLink]="['/landing', 'game']"
+            [hidden]="player.isGameSectionLocked">
+            Game Section</a> -->
+          <a class="nav-link"
+            [routerLink]="['/landing', 'game']"
+            [hidden]="sharedPlayerSvc.sharedNode.isGameSectionLocked">
+            Game Section</a>
+        </li>
+      </ul>
+
+      <div>
+        <img src="{{ '../../assets/coin.gif'}}"
+          alt="info button" class="icons">
+        <!-- {{chara.coinwallet}} -->
+        {{player.coinwallet}}
+        <!-- {{coinwallet$ | async}} -->
+      </div>
+      <ng-template #noData>
+        <p>No Coins</p>
+      </ng-template>
+
+      <div class="navbuttons">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <img src="{{ '../../assets/profile-user.png'}}"
+            alt="account button" class="icons" id="dropdownBasic1"></button>
+        <mat-menu #menu="matMenu">
+          <!-- <button mat-menu-item [routerLink]="['/account']">Account
+            Settings</button> -->
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
+
+    </div>
+  </div>
+</nav>

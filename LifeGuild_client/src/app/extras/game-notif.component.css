@@ -1,0 +1,28 @@
+body {
+  overflow-x: hidden;
+}
+
+.notification {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: inline-block;
+  width: 120px;
+  height: 24px;
+  line-height: 24px;
+  color: rgb(255, 255, 255);
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: rgb(223, 0, 0);
+  border: 1px solid rgb(191, 0, 0);
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.4);
+  transform: translateX(200vw);
+  transition: transform 1s ease-out;
+}
+
+button {
+  margin-top: 36px;
+  cursor: pointer;
+}

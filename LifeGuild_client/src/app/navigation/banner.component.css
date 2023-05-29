@@ -1,0 +1,46 @@
+.piximage {
+  /* width: 100%; */
+  min-height: 240px;
+  image-rendering: pixelated;
+}
+
+
+.banner {
+  background: var(--key-yellow);
+  position: relative;
+}
+
+.player-pet {
+  display: absolute;
+  transform-origin: -100% 0;
+  /* transform: translate(1200px, -230px); */
+  transform: translate(1200px, -90px);
+}
+
+.overlay-pet {
+  position: absolute;
+  /* top: 160px;
+  left: 1200px; */
+  transition: .5s ease;
+  /* background-color: #181815; */
+}
+
+.overlay-character {
+  position: absolute;
+  top: 70px;
+  left: 1000px;
+  transition: .5s ease;
+  /* background-color: #181815; */
+}
+
+.overlay-enemy {
+  position: absolute;
+  top: 10px;
+  left: 500px;
+  transition: .5s ease;
+  /* background-color: #181815; */
+}
+
+.gradient-text {
+  color: white;
+}

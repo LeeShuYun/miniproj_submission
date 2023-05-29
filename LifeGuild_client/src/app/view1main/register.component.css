@@ -1,0 +1,34 @@
+label {
+  color: var(--font-color);
+}
+
+h1 {
+  font-family: 'Sigmar', cursive;
+}
+
+
+.container {
+  /* background-color: var(--key-yellow); */
+  width: 20vw;
+  height: 100vh;
+
+  font-family: 'Sigmar', cursive;
+}
+
+.inner-container {
+  position: absolute;
+  top: 15%;
+  /* background-color: rgba(var(--white-rgb), 0.85); */
+  background-color: white;
+  border: 10px solid black;
+  padding: 3em;
+  width: 400px;
+
+}
+
+.background {
+  background: url(../../assets/bg/register_bg.avif) no-repeat scroll left center transparent;
+  background-size: cover;
+  width: 100%;
+  image-rendering: pixelated;
+}

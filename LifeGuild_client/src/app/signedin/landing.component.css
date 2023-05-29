@@ -1,0 +1,19 @@
+.pagelayout {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.container {
+  display: none;
+}
+
+.app-footer {
+  bottom: 0;
+}
+
+.max {
+  height: 85vh;
+}

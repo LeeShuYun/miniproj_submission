@@ -1,0 +1,52 @@
+.error {
+  color: red;
+}
+
+.container {
+  column-count: 6;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #181815;
+}
+
+.card:hover .overlay {
+  opacity: 0.8;
+}
+
+
+.background {
+  background: url(../../assets/bg/library.avif) no-repeat scroll left center transparent;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.font-white {
+  color: white;
+  font-family: 'Sigmar', cursive;
+}
+
+.nav-padding {
+  padding: 10px;
+}
+
+.cut-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  /* overflow: clip; */
+  text-overflow: ellipsis;
+
+}

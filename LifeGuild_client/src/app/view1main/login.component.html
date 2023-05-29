@@ -1,0 +1,39 @@
+
+<div class="background">
+
+
+  <div class="container d-flex align-self-center justify-content-center">
+    <div class="inner-container">
+
+
+      <div class="col">
+        <h1>Welcome to LifeGuild!</h1>
+        <p>The productivity game that helps you keep your life on track!</p>
+      </div>
+
+      <div class="login">
+        <form [formGroup]="form" (ngSubmit)="login()" class="form-group">
+          <input type="text" name="u" size="30" placeholder="Username"
+            formControlName="email" class="form-control"/>
+
+          <div *ngIf="isControlInvalid('email')" class="error">
+            Email must be in the proper email format.
+          </div>
+          <input type="password" name="p" size="30" placeholder="Password"
+            formControlName="password" class="form-control"/>
+          <div *ngIf="isControlInvalid('password')" class="error">
+            Password must be between 12 and 30 characters long excluding
+            whitespace.
+          </div>
+          <button type="submit" [disabled]="form.invalid" class="login-btn btn
+            btn-primary
+            btn-block btn-large">
+            Login
+          </button>
+        </form>
+        <p>New User? Click here to <u><a [routerLink]="['/register']">Sign Up</a></u></p>
+        <!-- <div>{{printtest$ | async | json}}</div> -->
+      </div>
+    </div>
+  </div>
+</div>

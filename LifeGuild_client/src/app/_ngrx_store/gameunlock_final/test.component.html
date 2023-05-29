@@ -1,0 +1,9 @@
+<a class="nav-link"
+  [routerLink]="['/landing', 'game']" [hidden]="isUnlocked$ | async">Game Unlock</a>
+<a class="nav-link"
+  [routerLink]="['/landing', 'game']" [hidden]="isLocked$ | async">Game Section</a>
+
+{{isUnlocked$ | async | json}}
+{{isLocked$ | async | json}}
+
+<button (click)="test()">Test</button>

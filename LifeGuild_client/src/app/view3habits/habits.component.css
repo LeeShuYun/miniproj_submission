@@ -1,0 +1,145 @@
+.container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  display: block;
+  overflow: hidden;
+}
+
+.list-item {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  color: black;
+  font-size: 14px;
+}
+
+.list-item:hover {
+  border-radius: 4px;
+  background-color: #ffedbd;
+  /* border: #B8860B solid 1px; */
+  box-sizing: border-box;
+}
+
+.list-item:last-child {
+  border: none;
+}
+
+/* Highlight the list item that is being dragged. */
+.cdk-drag-preview {
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* Animate items as they're being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.checkbox {
+  width: 30px;
+  margin-left: 15px;
+}
+
+.forminputfield {
+  width: 100%;
+}
+
+.task-prompts {
+  color: grey;
+  /* background-color: blue; */
+  width: 80%;
+  height: 100%;
+  min-height: 80px;
+  padding: auto;
+  resize: both;
+  overflow: auto;
+  text-align: center;
+}
+
+
+.tasklist {
+  height: 500px;
+}
+
+.habitcounter {
+  width: 50px;
+  /* height: 100%; */
+  /* background-color: aqua; */
+}
+
+
+.habitcounter:hover {
+  /* background-color: red; */
+}
+
+
+.list-habit {
+  justify-content: space-between;
+}
+
+.reward-coin {
+  /* background-color: blue; */
+  width: 20px;
+  height: 20px;
+}
+
+.reward-title {
+  padding: 1em;
+  width: 220px;
+}
+
+h2 {
+  font-family: 'Sigmar', cursive;
+  padding-top: 1em;
+}
+
+.habit-limit-width {
+  padding: 0px 20px 0px 20px;
+  width: 220px;
+}
+
+.word-wrap {
+  word-wrap: break-word;
+}
+
+.todo-title {
+  width: 220px;
+}
+
+.daily-title {
+  width: 220px;
+}
+
+.games-section-unlock{
+  background-color: #8495db;
+  font-family: 'Sigmar', cursive;
+}
+
+.games-section-unlock:hover{
+  background-color:#533e85;
+  color: white;
+  font-family: 'Sigmar', cursive;
+}

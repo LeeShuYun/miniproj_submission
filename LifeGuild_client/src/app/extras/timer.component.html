@@ -1,0 +1,8 @@
+{{time}} seconds left
+{{hours}}:{{minutes}}:{{seconds}}
+
+<button *ngIf="isTimerRunning; else timerStopped" (click)="startTimer()">Start</button>
+<ng-template #timerStopped>
+  <button (click)="stopTimer()">Stop</button>
+</ng-template>
+<button (click)="resetTimer()">Reset</button>

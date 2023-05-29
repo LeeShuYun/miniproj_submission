@@ -1,0 +1,5 @@
+.background {
+  background: url(../../assets/bg/login_bg.avif) no-repeat scroll left center transparent;
+  background-size: cover;
+  image-rendering: pixelated;
+}

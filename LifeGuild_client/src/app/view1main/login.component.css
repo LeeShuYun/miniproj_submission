@@ -1,0 +1,68 @@
+.container {
+  /* background-color: var(--key-yellow); */
+  width: 80vw;
+  height: 100vh;
+  /* border: 10px solid black; */
+  font-family: 'Sigmar', cursive;
+
+}
+
+.inner-container {
+  position: absolute;
+  top: 30%;
+  /* background-color: rgba(var(--white-rgb), 0.85); */
+  background-color: white;
+  padding: 3em;
+  min-width: 400px;
+  border: 10px solid black;
+  border-radius: 10px;
+}
+
+.background {
+  /* background: url(https://www.dropbox.com/s/rqqz4g9a2h6oga6/login_bg.avif?raw=1) no-repeat scroll left center transparent; */
+  background: url(../../assets/bg/login_bg.avif) no-repeat scroll left center transparent;
+  background-size: cover;
+  /* background: url(../../assets/bg/register_bg.jpeg) no-repeat scroll left center transparent; */
+  /* width: 100%; */
+  image-rendering: pixelated;
+}
+
+.leftdiv {
+  width: 25%;
+}
+
+form {
+  width: 300px;
+}
+
+.login-btn {
+  width: 100%;
+  /* color: white; */
+}
+
+.login {
+  width: 50%;
+  /* align-items: center; */
+}
+
+/* .container
+h5,
+p {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  text-align: center;
+} */
+/* p {
+  color: var(--font-color);
+
+} */
+
+h1 {
+  color: black;
+  font-family: 'Sigmar', cursive;
+}
+
+.error {
+  color: red;
+}
