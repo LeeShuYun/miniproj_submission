@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.leeshuyun.Lifeguild.exceptions.TradePetFailedException;
@@ -48,6 +49,22 @@ public class TelegramBotController {
     @PostMapping(path = "/{userid}")
     public ResponseEntity<String> getReminder(@PathVariable int userid) {
         log.info("/api/telegram/{userid}: getting chara for userid: %s".formatted(userid));
+
+        // List<Reminder> reminders = ;
+
+        JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+        // .add("character", chara.toJSONObjBuilder());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(objBuilder.build().toString());
+    }
+
+    // slightly different in that it saves the chat id
+    @PostMapping(path = "/login")
+    public ResponseEntity<String> telegramLogin(@RequestBody String payload) {
+        log.info("/api/telegram/login: %s".formatted(payload));
 
         // List<Reminder> reminders = ;
 

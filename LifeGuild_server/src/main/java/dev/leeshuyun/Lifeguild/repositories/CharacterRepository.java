@@ -40,8 +40,22 @@ public class CharacterRepository {
     GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
     public CharacterDetails getCharacterByUserId(int userid) {
-        return jdbcTemplate.queryForObject(SQL_GET_CHARACTER_BY_USERID,
-                BeanPropertyRowMapper.newInstance(CharacterDetails.class), userid);
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_CHARACTER_BY_USERID,
+                userid);
+        CharacterDetails cd = new CharacterDetails();
+        if (!rs.next())
+            return cd;
+
+        cd.setUserid(rs.getInt("userid"));
+        cd.setCharacterid(rs.getInt("characterid"));
+        cd.setHealth(rs.getInt("health"));
+        cd.setCoinwallet(rs.getInt("coinwallet"));
+        cd.setCurrentpetid(rs.getInt("currentpetid"));
+        cd.setImageUrl(rs.getString("image_url"));
+        return cd;
+
+        // return jdbcTemplate.queryForObject(SQL_GET_CHARACTER_BY_USERID,
+        // BeanPropertyRowMapper.newInstance(CharacterDetails.class), userid);
     }
 
     // reusable, cool.

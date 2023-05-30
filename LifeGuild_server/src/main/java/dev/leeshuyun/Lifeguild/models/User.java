@@ -3,9 +3,9 @@ package dev.leeshuyun.Lifeguild.models;
 import java.util.Collection;
 import java.util.List;
 
-// import org.springframework.security.core.GrantedAuthority;
-// import org.springframework.security.core.authority.SimpleGrantedAuthority;
-// import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +18,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-// public class User implements UserDetails {
-public class User {
+public class User implements UserDetails {
+// public class User {
     private int userid;
     private String firstname;
     private String lastname;
@@ -30,7 +30,7 @@ public class User {
     private int confirmationcode;
     private Boolean isemailconfirmed; // for non-google login users
     private Boolean isgooglelogin;
-    private String telegramchatid;
+    private int telegramchatid;
 
     // @Override
     // public String toString() {
@@ -42,35 +42,35 @@ public class User {
     // }
 
     // Authorities = role of the user. eg. Player? Admin?
-    // @Override
-    // public Collection<? extends GrantedAuthority> getAuthorities() {
-    // // userrole PLAYER, MODERATOR, ADMIN
-    // return List.of(new SimpleGrantedAuthority(userrole.name()));
-    // }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+    // userrole PLAYER, MODERATOR, ADMIN
+    return List.of(new SimpleGrantedAuthority(userrole.name()));
+    }
 
-    // @Override
-    // public String getPassword() {
-    // return userpassword;
-    // }
+    @Override
+    public String getPassword() {
+    return userpassword;
+    }
 
-    // @Override
-    // public boolean isAccountNonExpired() {
-    // return true;
-    // }
+    @Override
+    public boolean isAccountNonExpired() {
+    return true;
+    }
 
-    // @Override
-    // public boolean isAccountNonLocked() {
-    // return true;
-    // }
+    @Override
+    public boolean isAccountNonLocked() {
+    return true;
+    }
 
-    // @Override
-    // public boolean isCredentialsNonExpired() {
-    // return true;
-    // }
+    @Override
+    public boolean isCredentialsNonExpired() {
+    return true;
+    }
 
-    // @Override
-    // public boolean isEnabled() {
-    // return true;
-    // }
+    @Override
+    public boolean isEnabled() {
+    return true;
+    }
 
 }

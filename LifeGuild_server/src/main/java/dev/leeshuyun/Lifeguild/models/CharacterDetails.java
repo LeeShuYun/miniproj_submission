@@ -47,7 +47,7 @@ public class CharacterDetails {
                 .add("health", getHealth())
                 .add("coinwallet", getCoinwallet())
                 .add("currentpetid", getCurrentpetid())
-                .add("imageUrl", getImageUrl());
+                .add("imageUrl", "character.avif");
     }
 
 }

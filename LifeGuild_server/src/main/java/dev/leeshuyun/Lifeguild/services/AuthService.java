@@ -49,17 +49,19 @@ public class AuthService {
      * >2 if success since userid auto increments, 0 if failed
      */
     @Transactional(rollbackFor = RegisteringUserFailedException.class)
-    public int registerUser(JsonObject payload) throws RegisteringUserFailedException {
-        try {
-            JsonObject body = payload.getJsonObject("body");
-            log.info("AuthSvc:registerUser()>>> body=%s".formatted(body));
-            body.getString("email");
-        } catch (NullPointerException nulle) {
-            log.error("no email found %s".formatted(nulle.getMessage()));
-            throw new RegisteringUserFailedException("no email in payload");
-        }
-        JsonObject body = payload.getJsonObject("body");
-        String email = body.getString("email");
+    public int registerUser(User user2) throws RegisteringUserFailedException {
+        // try {
+        //     // JsonObject body = user2.getJsonObject("body");
+        //     log.info("AuthSvc:registerUser()>>> user=".formatted(user2.toString()));
+        //     // body.getString("email");
+        // } catch (NullPointerException nulle) {
+        //     log.error("no email found %s".formatted(nulle.getMessage()));
+        //     throw new RegisteringUserFailedException("no email in payload");
+        // }
+        // JsonObject body = user2.getJsonObject("body");
+        // String email = body.getString("email");
+        String email = user2.getEmail();
+        log.info("email receiver", email);
         // check if user has registered before.
         try {
             authRepo.getUserByEmail(email);
@@ -74,20 +76,20 @@ public class AuthService {
             int confirmationCode = rand.nextInt(100000, 999999);
 
             // make acc
-            User user = User.builder()
-                    .firstname(body.getString("firstname"))
-                    .lastname(body.getString("lastname"))
-                    .email(body.getString("email"))
-                    .username(body.getString("username"))
-                    .userpassword(body.getString("password"))
-                    .userrole(Role.PLAYER)
-                    .confirmationcode(confirmationCode)
-                    .isemailconfirmed(false)
-                    .isgooglelogin(body.getBoolean("isgooglelogin"))
-                    .build();
+            // User user = User.builder()
+            //         .firstname(body.getString("firstname"))
+            //         .lastname(body.getString("lastname"))
+            //         .email(body.getString("email"))
+            //         .username(body.getString("username"))
+            //         .userpassword(body.getString("password"))
+            //         .userrole(Role.PLAYER)
+            //         .confirmationcode(confirmationCode)
+            //         .isemailconfirmed(false)
+            //         .isgooglelogin(body.getBoolean("isgooglelogin"))
+            //         .build();
 
             // insert new user into db
-            int userid = authRepo.registerUser(user);
+            int userid = authRepo.registerUser(user2);
 
             // userid 1 is admin, 2 is default user, so any new user is >2
             // TODO - refactor later when userid is changed to UUID, keeping it simple for
@@ -108,7 +110,9 @@ public class AuthService {
 
                 // replace placeholder values
                 htmlEmailTemplate = htmlEmailTemplate.replace("${firstname}",
-                        body.getString("firstname"));
+                        user2.getFirstname());
+                // htmlEmailTemplate = htmlEmailTemplate.replace("${firstname}",
+                //         body.getString("firstname"));
                 String finishedEmail = htmlEmailTemplate.replace("${confirmationcode}",
                         confirmationCode + "");
 
@@ -119,9 +123,9 @@ public class AuthService {
                     return userid;
                 } catch (MessagingException me) {
                     log.error("failed to send email to registering user=%s"
-                            .formatted(user.toString()));
+                            .formatted(user2.toString()));
                     throw new RegisteringUserFailedException(
-                            "email failed to send for %s".formatted(user.toString()));
+                            "email failed to send for %s".formatted(user2.toString()));
 
                 }
             }
@@ -132,7 +136,7 @@ public class AuthService {
     }
 
     public Optional<Account> getUserByEmailAndPassword(UserLoginDetails loginDetails) {
-        User user = authRepo.getUserByEmail(loginDetails.getEmail());
+        User user = authRepo.getUserByEmail(loginDetails.getEmail()).get();
         log.info("AuthSvc>getUserByEmail> {}", user.toString());
         // compare passwords
         if (user.getUserpassword().equals(loginDetails.getPassword())) {
@@ -151,7 +155,7 @@ public class AuthService {
     }
 
     public User getUserByEmailOnly(String email) {
-        return authRepo.getUserByEmail(email);
+        return authRepo.getUserByEmail(email).get();
     }
 
     public boolean confirmUserEmailWithCode(JsonObject jsonObj) {

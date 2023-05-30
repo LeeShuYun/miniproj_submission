@@ -104,7 +104,8 @@ public class AuthController {
                 // register user. 0 for fail, >2 for success.
                 // 1 and 2 are default admin and demo acc respectively
                 try {
-                        int userid = authSvc.registerUser(jsonObj);
+                        // int userid = authSvc.registerUser(jsonObj);
+                        int userid = 2; // TODO this is a temp
                         JsonObjectBuilder jsonB = Json.createObjectBuilder()
                                         .add("message", "email sent")
                                         .add("userid", Integer.toString(userid));
@@ -119,5 +120,7 @@ public class AuthController {
                 }
 
         }
+
+
 
 }
