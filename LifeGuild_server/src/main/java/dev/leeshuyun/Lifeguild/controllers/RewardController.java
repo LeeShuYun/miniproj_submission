@@ -42,7 +42,7 @@ public class RewardController {
                 // JsonObject jsonObj = JsonUtil.toJson(json).asJsonObject();
                 // Reward reward =
                 // Reward.createRewardFromJsonObj(jsonObj.getJsonObject("reward"));
-                // int userid = Integer.valueOf(jsonObj.getString("userid"));
+                // String userid = Integer.valueOf(jsonObj.getString("userid"));
                 logger.info("/api/reward: adding Reward %s".formatted(reward.toString()));
 
                 int rewardId = taskSvc.addReward(reward);
@@ -107,7 +107,7 @@ public class RewardController {
         public ResponseEntity<String> spendCoin(@RequestBody String json) {
                 JsonObject jsonObj = JsonUtil.toJson(json).asJsonObject();
                 int amountSpent = Integer.valueOf(jsonObj.getString("coin"));
-                int userid = Integer.valueOf(jsonObj.getString("userid"));
+                String userid = jsonObj.getString("userid");
                 boolean isTransactionSuccess = taskSvc.spendCoin(userid, amountSpent);
 
                 String payload = Json.createObjectBuilder()

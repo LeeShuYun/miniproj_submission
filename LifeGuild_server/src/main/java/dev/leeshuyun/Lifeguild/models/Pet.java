@@ -18,16 +18,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Pet {
-    int petid;
-    int userid;
+    String petid;
+    String userid;
     // String petname;
     // String species;
     int healing;
     String image;
 
     // custom default Pet constructor
-    public Pet(int userid) {
-        this.petid = 0;
+    public Pet(String userid) {
+        this.petid = petid;
         this.userid = userid;
         this.healing = 15;
         this.image = "dragon.avif";
@@ -35,8 +35,8 @@ public class Pet {
 
     public static Pet createPetFromJsonObj(JsonObject jsonObj) {
         Pet pet = Pet.builder()
-                .petid(jsonObj.getInt("petid"))
-                .userid(jsonObj.getInt("userid"))
+                .petid(jsonObj.getString("petid"))
+                .userid(jsonObj.getString("userid"))
                 // .petname(jsonObj.getString("petname"))
                 // .species(jsonObj.getString("species"))
                 .healing(jsonObj.getInt("healing"))

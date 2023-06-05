@@ -14,7 +14,7 @@ export interface CharacterState {
 
 export const initialState: CharacterState = {
   character: {
-    userid: 0,
+    userid: "000001",
     characterid: 0,
     health: 0,
     coinwallet: 0,

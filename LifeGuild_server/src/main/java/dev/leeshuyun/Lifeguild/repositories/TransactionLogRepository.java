@@ -40,7 +40,7 @@ public class TransactionLogRepository {
         logger.info("Pet Adoption Transaction recorded into MongoDB: " + txn.toString());
     }
 
-    public List<TransactionLog> getTransactionsByUserid(int userid) {
+    public List<TransactionLog> getTransactionsByUserid(String userid) {
         Criteria criterial = Criteria.where("toUserId").is(userid);
         Query query = Query.query(criterial);
         return mongoTemplate.find(query, TransactionLog.class, COLLECTION_TRANSACTIONSLOG);

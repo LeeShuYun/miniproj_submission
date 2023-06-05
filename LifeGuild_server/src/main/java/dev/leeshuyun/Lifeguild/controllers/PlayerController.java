@@ -54,7 +54,7 @@ public class PlayerController {
 
     // DONE
     @PostMapping(path = "/{userid}")
-    public ResponseEntity<String> getCharacterAndPetDetails(@PathVariable int userid) {
+    public ResponseEntity<String> getCharacterAndPetDetails(@PathVariable String userid) {
         log.info("/api/player/{userid}: getting chara for userid: %s".formatted(userid));
 
         CharacterDetails chara = charaSvc.getCharacterByUserId(userid);
@@ -99,7 +99,7 @@ public class PlayerController {
     // DONE
     // private endpt not for users
     @GetMapping(path = "/transactions/{userid}")
-    public ResponseEntity<String> getTransactionLogByUserId(@PathVariable int userid) {
+    public ResponseEntity<String> getTransactionLogByUserId(@PathVariable String userid) {
         log.info("/api/player/transactions/{userid} %s".formatted(userid));
 
         List<TransactionLog> txns = txnLogRepo.getTransactionsByUserid(userid);

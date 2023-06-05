@@ -20,7 +20,7 @@ export class PlayerstateService {
   // Player - has obviously fake values
   //so we know it hasn't updated on login
   sharedNode: Player = {
-    userid: 0,
+    userid: "98c2bce4",
     characterid: 0,
     health: 0,
     coinwallet: 20,
@@ -65,7 +65,7 @@ export class PlayerstateService {
           //update this node for display whenever someone sends it
           this.updateSharedNode(playerData)
           localStorage.setItem('player', JSON.stringify(playerData))
-          
+
           //send data to rest of the app - optional??
           //TODO - needs refactor of other components to remove
           this.onPlayerData.next(playerData)

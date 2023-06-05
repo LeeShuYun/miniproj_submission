@@ -19,18 +19,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class User implements UserDetails {
-// public class User {
-    private int userid;
+    private String userid;
     private String firstname;
     private String lastname;
     private String email;
     private String username;
     private String userpassword;
-    private Role userrole;
+    private Role userrole; // player, moderator, admin
     private int confirmationcode;
     private Boolean isemailconfirmed; // for non-google login users
     private Boolean isgooglelogin;
-    private int telegramchatid;
+    private String telegramchatid;
 
     // @Override
     // public String toString() {
@@ -41,36 +40,35 @@ public class User implements UserDetails {
     // isgooglelogin);
     // }
 
-    // Authorities = role of the user. eg. Player? Admin?
+    // Authorities= role of the user.eg.Player?Admin?
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-    // userrole PLAYER, MODERATOR, ADMIN
-    return List.of(new SimpleGrantedAuthority(userrole.name()));
+        return List.of(new SimpleGrantedAuthority(userrole.name()));
     }
 
     @Override
     public String getPassword() {
-    return userpassword;
+        return userpassword;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-    return true;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-    return true;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-    return true;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-    return true;
+        return true;
     }
 
 }

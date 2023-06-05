@@ -36,7 +36,7 @@ export class CharacterService {
   }
 
   //GET /api/player/  grabs current character details, pets with userid
-  // getSession(userid: number): Promise<any> {
+  // getSession(userid: string): Promise<any> {
   //   const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   //   const body = userid
   //   console.log("getting character for userid >>", userid);

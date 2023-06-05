@@ -104,7 +104,7 @@ public class SQLqueries {
                         """;
 
         public static final String SQL_INSERT_PET = """
-                                INSERT INTO pets(userid, healingamount, image) VALUES (?, ?, ?);
+                                INSERT INTO pets(petid, userid, healingamount, image) VALUES (?, ?, ?, ?);
                         """;
         public static final String SQL_INSERT_DEFAULT_CHARACTER = """
                                 INSERT INTO characterdetails (
@@ -114,8 +114,8 @@ public class SQLqueries {
                         update userbase set isemailconfirmed = true where email = ?;
                                 """;
         public static final String SQL_INSERT_NEW_USER = """
-                        INSERT INTO userbase(firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed, isgooglelogin, telegram_chatid, dateregistered)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                        INSERT INTO userbase(userid, firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed, isgooglelogin, telegram_chatid, dateregistered)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                                         """;
         public static final String SQL_UPDATE_USER_TELEGRAM_CONFIRMED = """
                         update userbase set telegram_chatid = ? where email = ?;

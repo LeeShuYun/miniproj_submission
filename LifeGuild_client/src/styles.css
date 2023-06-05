@@ -20,7 +20,7 @@ body {
   --key-yellow: #FFD337;
   --font-color: #2F2F2C;
   --yellow-highlight: #FFE58D;
-  --yellow-dark: hsl(var(--primary) 20% 75%);
+  --yellow-dark: hsl(var(--key-yellow) 20% 75%);
   --bg-blue: #1B4081;
   --bg-red: #D91530;
   --white-rgb: 240, 240, 240;

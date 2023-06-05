@@ -18,14 +18,12 @@ use lifeguild;
 -- select * from recommendedbooks;
 
 -- userbase
-INSERT INTO userbase(firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed, isgooglelogin, telegram_chatid, dateregistered) -- admin
-VALUES ("tester", "admin", "admin@lifeguild.fun", "admin", "lolololol", "ADMIN", 999999, true, false, "460909373", "2023-05-01");
-INSERT INTO userbase(firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed,isgooglelogin, telegram_chatid, dateregistered) -- guest acc
-VALUES ("testfirstname", "testlastname", "test@test.com", "guest", "testtesttest", "PLAYER", 999999, true, false, "460909373", "2023-05-01");
-INSERT INTO userbase(firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed,isgooglelogin, telegram_chatid, dateregistered)
-VALUES ("fred", "flintstone", "fred@gmail.com", "fred" , "password", "PLAYER", 999999, true, true, "460909373", "2023-05-01");
-INSERT INTO userbase(firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed,isgooglelogin, telegram_chatid, dateregistered)
-VALUES ("testtestfirst", "testtest", "email2@gmail.com", "codeMonkey", "testpassword", "MODERATOR", 999999, true, true, "460909373", "2023-05-01");
+INSERT INTO userbase(userid, firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed, isgooglelogin, telegram_chatid, dateregistered) -- admin
+VALUES ("98c2ba96", "tester", "admin", "admin@lifeguild.fun", "admin", "lolololol", "ADMIN", 999999, true, false, "460909373", "2023-05-01");
+INSERT INTO userbase(userid, firstname,lastname,email,username,userpassword,userrole,confirmationcode, isemailconfirmed,isgooglelogin, telegram_chatid, dateregistered) -- guest acc
+VALUES ("98c2bce4","testfirstname", "testlastname", "test@test.com", "guest", "testtesttest", "PLAYER", 999999, true, false, "460909373", "2023-05-01");
+
+select * from userbase where email = "test@test.com";
 
 select * from userbase
 inner join pets
@@ -39,36 +37,36 @@ on userbase.userid = pets.userid;
 -- delete from userbase where userid = 20;
 
 -- pets for admin - these correspond to the marketplace for now
-INSERT INTO pets( userid, healingamount, image) VALUES ( 1, 7, "cat.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 10, "R2D2.avif");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 11, "kirby.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 16, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 5, "cat.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 20, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 11, "kirby.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 16, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 5, "cat.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 20, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 16, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 5, "cat.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 20, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 11, "kirby.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 16, "dog.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 1, 5, "cat.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES (  1, 20, "dog.webp");
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ("68bdd3d7", "98c2ba96", 7, "cat.webp");
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ("5179d4f2", "98c2ba96", 10, "R2D2.avif");
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ( "33bb78ce", "98c2ba96", 11, "kirby.webp");
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ( "c5888e55", "98c2ba96", 16, "dog.webp");
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ( "434c78a8", "98c2ba96", 5, "cat.webp");
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ( "b1760c15", "98c2ba96", 20, "dog.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES ( "73c97545", "98c2ba96", 11, "kirby.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES ( "e182bd43", "98c2ba96", 16, "dog.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES ( "f492b894", "98c2ba96", 5, "cat.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "d4abcb5c",  "98c2ba96", 20, "dog.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "6ba14988", "98c2ba96", 16, "dog.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "2441acd2", "98c2ba96", 5, "cat.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "aed33dfd", "98c2ba96", 20, "dog.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "6c578c7e", "98c2ba96", 11, "kirby.webp"); 
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "a451fc82", "98c2ba96", 16, "dog.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES ( "845cc815", "98c2ba96", 5, "cat.webp");
+INSERT INTO pets(petid,userid, healingamount, image) VALUES (  "08eada77", "98c2ba96", 20, "dog.webp");
 
--- pets for guest acc
+
 -- when userid  = 0, the pet has no owner and is eligible for adoption. money goes to admin
 -- INSERT INTO pets(userid, healingamount, image) VALUES ( "2",  5, "dog.webp");
 -- INSERT INTO pets( userid, healingamount, image) VALUES ( "2",  5, "cat.webp");
-INSERT INTO pets(userid, healingamount, image) VALUES ( 0, 7, "R2D2.avif");
-INSERT INTO pets( userid, healingamount, image) VALUES ( 2, 15, "kirby.avif");
-INSERT INTO pets(userid, healingamount, image) VALUES (3, 10, "kirby.avif");
-select * from pets where userid =2;
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ( "2858ef00", "98c2ba96", 7, "R2D2.avif"); -- admin
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ( "595001fa", "98c2bce4", 15, "kirby.avif"); -- demo player
+INSERT INTO pets(petid, userid, healingamount, image) VALUES ("12bf3aab", "98c2ba96", 10, "kirby.avif"); -- admin
+select * from pets where userid = "98c2bce4";
 -- update pets
 -- set healingamount= 100,
 -- image = "kirby.avif"
--- where petid = 19;s
+-- where petid = 19;
 
 -- update pets 
 -- set userid = 2, 
@@ -77,52 +75,53 @@ select * from pets where userid =2;
 -- where petid = 16; 
 
 -- should be same as the existing amount of pets owned by admin FOR NOW
-INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES (1, 1, 7, "cat.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 2, 1, 10, "R2D2.avif");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 3, 1, 11, "kirby.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (4,  1, 16, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 5, 1, 5, "cat.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (6,  1, 20, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 7, 1, 11, "kirby.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 8, 1, 16, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 9, 1, 5, "cat.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (10,  1, 20, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (11,  1, 16, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 12, 1, 5, "cat.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (13,  1, 20, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (14,  1, 11, "kirby.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (15,  1, 16, "dog.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (16, 1, 5, "cat.webp");
-INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( 17, 1, 20, "dog.webp");
+INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES ("68bdd3d7", "98c2ba96", 7, "cat.webp");
+INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES ("5179d4f2", "98c2ba96", 10, "R2D2.avif");
+INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES ( "33bb78ce", "98c2ba96", 11, "kirby.webp");
+INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES ( "c5888e55", "98c2ba96", 16, "dog.webp");
+INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES ( "434c78a8", "98c2ba96", 5, "cat.webp");
+INSERT INTO petmarketplace(petid, userid, healingamount, image) VALUES ( "b1760c15", "98c2ba96", 20, "dog.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( "73c97545", "98c2ba96", 11, "kirby.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( "e182bd43", "98c2ba96", 16, "dog.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( "f492b894", "98c2ba96", 5, "cat.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "d4abcb5c",  "98c2ba96", 20, "dog.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "6ba14988", "98c2ba96", 16, "dog.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "2441acd2", "98c2ba96", 5, "cat.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "aed33dfd", "98c2ba96", 20, "dog.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "6c578c7e", "98c2ba96", 11, "kirby.webp"); 
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "a451fc82", "98c2ba96", 16, "dog.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES ( "845cc815", "98c2ba96", 5, "cat.webp");
+INSERT INTO petmarketplace(petid,userid, healingamount, image) VALUES (  "08eada77", "98c2ba96", 20, "dog.webp");
 select * from petmarketplace;
 -- delete from petmarketplace where petid = 15;
 
 -- pet blueprints, do not change
--- acts as storefront
-INSERT INTO petblueprints(petid, species, healingamount, image) VALUES ("00000001", "dog", 5, "dog.webp");
-INSERT INTO petblueprints(petid, species, healingamount, image) VALUES ("00000002", "cat", 5, "cat.webp");
-INSERT INTO petblueprints(petid, species, healingamount, image) VALUES ("00000003", "special", 10, "kirby.avif");
-INSERT INTO petblueprints(petid, species, healingamount, image) VALUES ("00000004", "special", 7, "R2D2.avif");
--- INSERT INTO petblueprints(petid, species, healingamount, image) VALUES ("00000005", "dragon", 15, "dragon.avif"); -- starter pet don't need 
+-- use to generate new pets
+INSERT INTO petblueprints(blueprintid, species, healingamount, image) VALUES ("00000001", "dog", 5, "dog.webp");
+INSERT INTO petblueprints(blueprintid, species, healingamount, image) VALUES ("00000002", "cat", 5, "cat.webp");
+INSERT INTO petblueprints(blueprintid, species, healingamount, image) VALUES ("00000003", "special", 10, "kirby.avif");
+INSERT INTO petblueprints(blueprintid, species, healingamount, image) VALUES ("00000004", "special", 7, "R2D2.avif");
+INSERT INTO petblueprints(blueprintid, species, healingamount, image) VALUES ("00000005", "dragon", 15, "dragon.avif");
 
 select * from pets;
 -- delete from pets where petid = "00000010";
 
 
 
+
 INSERT INTO dailies(userid, title, difficulty, is_complete,date_created) 
-VALUES(1, "drink 1.5l water", "low", false, "2023-5-11");
+VALUES("98c2ba96", "drink 1.5l water", "low", false, "2023-5-11");
 INSERT INTO dailies(userid, title, difficulty, is_complete, date_created) 
-VALUES(2, "check email", "low", true, "2023-5-11");
+VALUES("98c2bce4", "check email", "low", true, "2023-5-11");
 INSERT INTO dailies(userid, title, difficulty, is_complete, date_created) 
-VALUES(1, "30 minutes exercise", "med", false, "2023-5-11");
+VALUES("98c2ba96", "30 minutes exercise", "med", false, "2023-5-11");
 INSERT INTO dailies(userid, title, difficulty, is_complete, date_created) 
-VALUES(1, "take dog out for a walk", "med", true, "2023-5-11");
+VALUES("98c2ba96", "take dog out for a walk", "med", true, "2023-5-11");
 INSERT INTO dailies(userid, title, difficulty, is_complete, date_created) 
-VALUES(2, "do some code", "low", false, "2023-5-11");
+VALUES("98c2bce4", "do some code", "low", false, "2023-5-11");
 
 -- select * from dailies;
-select * from dailies where userid = 2;
+select * from dailies where userid = "98c2bce4";
 -- update dailies 
 -- set title = "new title", 
 -- difficulty = "high",
@@ -130,17 +129,17 @@ select * from dailies where userid = 2;
 -- where dailyid = 10; 
 
 INSERT INTO rewards(userid, title,cost, date_created) 
-VALUES(1, "Watch a show", 30, "2023-5-11");
+VALUES("98c2ba96", "Watch a show", 30, "2023-5-11");
 INSERT INTO rewards(userid, title,cost, date_created) 
-VALUES(2, "buy that overly expensive thing that makes you happy", 20, "2023-5-11");
+VALUES("98c2bce4", "buy that overly expensive thing that makes you happy", 20, "2023-5-11");
 INSERT INTO rewards(userid,title,cost, date_created) 
-VALUES(2, "Watch a show", 15, "2023-5-11");
+VALUES("98c2bce4", "Watch a show", 15, "2023-5-11");
 INSERT INTO rewards(userid,title,cost, date_created) 
-VALUES(2, "get a snack", 10, "2023-5-11");
+VALUES("98c2bce4", "get a snack", 10, "2023-5-11");
 INSERT INTO rewards(userid,title,cost, date_created) 
-VALUES(1, "take a nice evening walk", 5, "2023-5-11");
+VALUES("98c2ba96", "take a nice evening walk", 5, "2023-5-11");
 INSERT INTO rewards(userid,title,cost,date_created) 
-VALUES(1, "buy that overly expensive thing you shouldn't be buying but makes you happy", 20, "2023-5-11");
+VALUES("98c2ba96", "buy that overly expensive thing you shouldn't be buying but makes you happy", 20, "2023-5-11");
 select * from rewards;
 -- select * from rewards where userid = 1;
 -- delete from rewards where rewardid = 2;
@@ -151,17 +150,17 @@ select * from rewards;
 
 
 INSERT INTO todos (userid, title, difficulty, due_date, priority, is_complete, date_created) 
-VALUES(1, "get tickets to the aquarium", "low", "2023-5-15", "med", false, "2023-5-11");
+VALUES("98c2ba96", "get tickets to the aquarium", "low", "2023-5-15", "med", false, "2023-5-11");
 INSERT INTO todos (userid, title, difficulty, due_date, priority, is_complete, date_created) 
-VALUES(1, "finish project", "high", "2023-5-28", "high", false, "2023-5-12");
+VALUES("98c2ba96", "finish project", "high", "2023-5-28", "high", false, "2023-5-12");
 INSERT INTO todos (userid, title, difficulty, due_date, priority, is_complete, date_created) 
-VALUES(1, "get groceries", "med", "2023-5-18", "high", false, "2023-5-13");
+VALUES("98c2ba96", "get groceries", "med", "2023-5-18", "high", false, "2023-5-13");
 INSERT INTO todos (userid, title, difficulty, due_date, priority, is_complete, date_created) 
-VALUES(2, "finish project", "high", "2023-5-15", "med", false, "2023-5-11");
+VALUES("98c2bce4", "finish project", "high", "2023-5-15", "med", false, "2023-5-11");
 INSERT INTO todos (userid, title, difficulty, due_date, priority, is_complete, date_created) 
-VALUES(2, "read a book", "high", "2023-5-28", "high", false, "2023-5-12");
+VALUES("98c2bce4", "read a book", "high", "2023-5-28", "high", false, "2023-5-12");
 INSERT INTO todos (userid, title, difficulty, due_date, priority, is_complete, date_created) 
-VALUES(2, "get some sleep", "med", "2023-5-18", "high", false, "2023-5-13");
+VALUES("98c2bce4", "get some sleep", "med", "2023-5-18", "high", false, "2023-5-13");
 
 select * from todos;
 -- select * from todos where userid = 1;
@@ -174,20 +173,20 @@ select * from todos;
 -- where todoid = 2; 
 
 INSERT INTO habits(userid, title, is_good_or_bad_habit, difficulty, positive_count, negative_count, date_created) 
-VALUES(1, "leaning on elbows", "bad", "low", 2, 5, "2023-5-15");
+VALUES("98c2ba96", "leaning on elbows", "bad", "low", 2, 5, "2023-5-15");
 INSERT INTO habits(userid, title, is_good_or_bad_habit, difficulty, positive_count, negative_count, date_created) 
-VALUES(1, "sitting up straight", "good", "low", 3, 1, "2023-5-12");
+VALUES("98c2ba96", "sitting up straight", "good", "low", 3, 1, "2023-5-12");
 INSERT INTO habits(userid, title, is_good_or_bad_habit, difficulty, positive_count, negative_count, date_created) 
-VALUES(1, "stay focused", "both", "low", 5, 1, "2023-5-10");
+VALUES("98c2ba96", "stay focused", "both", "low", 5, 1, "2023-5-10");
 INSERT INTO habits(userid, title, is_good_or_bad_habit, difficulty, positive_count, negative_count, date_created) 
-VALUES(2, "leaning on elbows", "bad", "low", 2, 5, "2023-5-15");
+VALUES("98c2bce4", "leaning on elbows", "bad", "low", 2, 5, "2023-5-15");
 INSERT INTO habits(userid, title, is_good_or_bad_habit, difficulty, positive_count, negative_count, date_created) 
-VALUES(2, "sitting up straight", "good", "low", 3, 1, "2023-5-12");
+VALUES("98c2bce4", "sitting up straight", "good", "low", 3, 1, "2023-5-12");
 INSERT INTO habits(userid, title, is_good_or_bad_habit, difficulty, positive_count, negative_count, date_created) 
-VALUES(2, "stay focused", "both", "low", 5, 1, "2023-5-10");
+VALUES("98c2bce4", "stay focused", "both", "low", 5, 1, "2023-5-10");
 -- select * from habits;
 -- delete from habits where habitid = 4;
-select * from habits where userid = 2;
+select * from habits where userid = "98c2bce4";
 
 -- update habits 
 -- set title = "new title", 
@@ -225,9 +224,9 @@ coinwallet,
 currentpetid, 
 image_url
 ) VALUES(
-1, 100,
+"98c2ba96", 100,
 100,  
-1,
+"6c578c7e",
 "character.avif"
 );
 INSERT INTO characterdetails (
@@ -236,21 +235,9 @@ coinwallet,
 currentpetid, 
 image_url
 ) VALUES(
-2, 100,
+"98c2bce4", 100,
 100,  
-2,
-"character.avif"
-);
-
-INSERT INTO characterdetails (
-userid, health,
-coinwallet,
-currentpetid, 
-image_url
-) VALUES(
-3, 89,
-99,  
-3,
+"595001fa",
 "character.avif"
 );
 
@@ -290,9 +277,10 @@ select * from characterdetails;
 --  image_url = "character.avif"
 -- where userid = 2;
 
+select * from userbase where userid = "99b6c089";
 
-
+-- only one enemy per user for now 
 INSERT INTO enemy(enemyid, userid, health, damage) 
-VALUES(1, 1, 99, 10);
+VALUES(1, "98c2ba96", 99, 10);
 INSERT INTO enemy(enemyid, userid, health, damage) 
-VALUES(2, 2, 66, 10);
+VALUES(2, "98c2bce4", 66, 10);

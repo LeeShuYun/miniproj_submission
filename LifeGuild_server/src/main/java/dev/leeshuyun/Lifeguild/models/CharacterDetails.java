@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class CharacterDetails {
-    int userid;
+    String userid;
     int characterid;
     // String charactername;
     int health;
@@ -25,13 +25,13 @@ public class CharacterDetails {
     // int characterlevel;
     // int writerlevel;
     int coinwallet;
-    int currentpetid;
+    String currentpetid;
     String imageUrl;
     // Weapon currentweapon;
 
     // default character custom constructor
     // this should be the only place we see this default
-    public CharacterDetails(int characterid, int userid, int petid) {
+    public CharacterDetails(int characterid, String userid, String petid) {
         this.userid = userid;
         this.characterid = characterid;
         this.health = 100;
@@ -47,7 +47,7 @@ public class CharacterDetails {
                 .add("health", getHealth())
                 .add("coinwallet", getCoinwallet())
                 .add("currentpetid", getCurrentpetid())
-                .add("imageUrl", "character.avif");
+                .add("imageUrl", getImageUrl());
     }
 
 }

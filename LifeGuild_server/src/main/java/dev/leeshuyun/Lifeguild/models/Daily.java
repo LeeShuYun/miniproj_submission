@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Daily {
-    int userid;
+    String userid;
     int dailyid;
     String title; // description
     String difficulty; // high med low
@@ -29,13 +29,13 @@ public class Daily {
 
     @Override
     public String toString() {
-        return "Daily [userid=%d,dailyid=%d,title=%s, difficulty=%s, isComplete=%s, dateCreated=%s]"
+        return "Daily [userid=%s,dailyid=%d,title=%s, difficulty=%s, isComplete=%s, dateCreated=%s]"
                 .formatted(userid, dailyid, title, difficulty, isComplete.toString(), dateCreated.toString());
     }
 
     public static Daily createDailyFromJsonObj(JsonObject jsonObj) {
         Daily daily = Daily.builder()
-                .userid(Integer.valueOf(jsonObj.getString("userid")))
+                .userid(jsonObj.getString("userid"))
                 .dailyid(Integer.valueOf(jsonObj.getInt("dailyid")))
                 .title(jsonObj.getString("title"))
                 .difficulty(jsonObj.getString("difficulty"))

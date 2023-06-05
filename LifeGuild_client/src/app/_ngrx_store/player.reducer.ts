@@ -17,7 +17,7 @@ export interface State {
 
 export const initialState: State = {
   character: {
-    userid: 0,
+    userid: "000002",
     characterid: 0,
     health: 0,
     coinwallet: 0,
@@ -26,7 +26,7 @@ export const initialState: State = {
   },
   pet: {
     petId: 0,
-    userid: 0,
+    userid: "000002",
     image: "R2D2.avif",
     healing: 0
   },

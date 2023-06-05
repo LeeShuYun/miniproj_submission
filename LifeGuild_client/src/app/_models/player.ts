@@ -2,7 +2,7 @@
 //they decay after a while
 
 export interface Habit {
-  userid: number;
+  userid: string;
   habitid: number;
   title: string;
   isGoodorBadHabit: string; //good, bad, both
@@ -17,7 +17,7 @@ export interface EditHabit extends Habit {
 }
 
 export interface ToDo {
-  userid: number;
+  userid: string;
   todoid: number;
   title: string;
   difficulty: string;
@@ -31,7 +31,7 @@ export interface EditToDo extends ToDo {
 }
 
 export interface Reward {
-  userid: number;
+  userid: string;
   rewardid: number;
   title: string;
   cost: number;
@@ -43,7 +43,7 @@ export interface EditedReward extends Reward {
 }
 
 export interface Daily {
-  userid: number;
+  userid: string;
   dailyid: number;
   title: string;
   difficulty: string;
@@ -92,7 +92,7 @@ export interface RegisterUserDetail {
 
 
 export interface Character {
-  userid: number
+  userid: string
   characterid: number
   // charactername: string
   health: number
@@ -112,10 +112,10 @@ export interface Character {
 
 //pets heal you. How much they heal depends on their species
 //and how long they have been with the player (Bond)
-//algo for their healing: Average HP per heal = (Raw heal) + (. 25 x Bond) rounded up
+// Average HP per heal = (Raw heal) + (. 25 x Bond) rounded up
 export interface PetInstance {
   petId: number;
-  userid: number;
+  userid: string;
   image: string;
   // species: string; //dragon, unicorn, wolf, mecha, cat, dog, tiger
   healing: number; //raw heal: 7, 6, 5, 7, 3, 3, 5HP
@@ -124,16 +124,14 @@ export interface PetInstance {
 
 //for time sake we're using lesser variables for now
 export interface PetBlueprint {
-  petId: string; //the only diff from petInstance
-  userid: number;
   image: string;
   // species: string;
   healing: number;
 }
 
 export interface TransactionPetAdoptionDetails {
-  fromUserId: number
-  toUserId: number
+  fromUserId: string
+  toUserId: string
   petId: number
   amount: number
 }

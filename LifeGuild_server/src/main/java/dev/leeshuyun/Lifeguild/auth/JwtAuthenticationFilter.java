@@ -1,4 +1,4 @@
-package dev.leeshuyun.Lifeguild.config;
+package dev.leeshuyun.Lifeguild.auth;
 
 import java.io.IOException;
 
@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwtToken = authHeader.substring(7);
 
         // now we extract userEmail from token using the jwt service.
-        // useremail is called username here bc username is their primary key
+        // user email is called username here bc username is their primary key
         userEmail = jwtService.extractUsername(jwtToken);
 
         // check if we need to authenticate user

@@ -22,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Player {
-    int userid;
+    String userid;
     int characterid;
     int health;
     int coinwallet;

@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
         console.log("userid", result['userid']);
         localStorage.setItem("userid", result['userid']);
 
-        this.form.reset();
+        // this.form.reset();
         this.router.navigate(['/confirm']);
       })
       .catch((error) => {

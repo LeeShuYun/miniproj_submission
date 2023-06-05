@@ -18,7 +18,7 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepo;
 
-    public Task getAllTasksByUserId(int userid) {
+    public Task getAllTasksByUserId(String userid) {
         List<Habit> habits = taskRepo.getHabitsByUserId(userid);
         List<Daily> dailies = taskRepo.getDailiesByUserId(userid);
         List<ToDo> todos = taskRepo.getTodosByUserId(userid);
@@ -27,7 +27,7 @@ public class TaskService {
         return new Task(habits, dailies, todos, rewards);
     }
 
-    public boolean spendCoin(int userid, int amountSpent) {
+    public boolean spendCoin(String userid, int amountSpent) {
         return taskRepo.spendCoin(userid, amountSpent);
     }
 

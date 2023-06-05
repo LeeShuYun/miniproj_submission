@@ -1,4 +1,4 @@
-package dev.leeshuyun.Lifeguild.config;
+package dev.leeshuyun.Lifeguild.auth;
 
 import java.security.Key;
 import java.util.Date;
@@ -19,6 +19,9 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
+/*
+ * JWT related tasks include creating and decoding the jwt tokens, and checking validity
+ */
 @Service
 public class JwtService {
 
@@ -29,7 +32,7 @@ public class JwtService {
 
     // email is the primary key we use to identify users for this app
     public String extractUsername(String jwtToken) {
-        // we pick out the "sub" subject claim, this is usually username, but in this
+        // pick out the "sub" subject claim, this is usually username, but in our
         // case is email
         return extractClaim(jwtToken, Claims::getSubject);
     }
@@ -87,12 +90,12 @@ public class JwtService {
     }
 
     // decode and extract all claims from payload using the signin key
+    // signing key is a secret used to sign the JWT token signature
+    // it's used together with the sign-in algo (HMAC, SHA256 etc) that is specified
+    // in the header
+    // key size (minimum 256-bit for JWT) and algo used depends on
+    // security requirements of app and level of trust in the signing party
     private Claims extractAllClaims(String jwtToken) {
-        // signing key is a secret used to sign the JWT token signature
-        // it's used together with the sign-in algo (HMAC, SHA256 etc) that is specified
-        // in the header
-        // key size (minimum 256-bit for JWT) and algo used depends on security
-        // requirements of app and level of trust in the signing party
         return Jwts
                 .parserBuilder() // parses the token
                 .setSigningKey(getSignInKey())

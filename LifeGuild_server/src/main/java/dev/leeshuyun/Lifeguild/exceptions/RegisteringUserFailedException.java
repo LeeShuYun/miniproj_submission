@@ -1,6 +1,6 @@
 package dev.leeshuyun.Lifeguild.exceptions;
 
-public class RegisteringUserFailedException extends RuntimeException {
+public class RegisteringUserFailedException extends Exception {
 
     public RegisteringUserFailedException() {
         super();

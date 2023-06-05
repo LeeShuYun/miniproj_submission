@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   player: Player =
     {
-      userid: 2,
+      userid: "98c2ba96",
       characterid: 2,
       coinwallet: 100,
       health: 80,

@@ -82,7 +82,7 @@ public class PetAdoptionService {
         charaRepo.changeCurrentPet(txnDetails.getPetId(), txnDetails.getToUserId());
         charaRepo.changePetOwner(txnDetails.getPetId(), txnDetails.getToUserId());
 
-        // hm.. handling the exception here allows easier reusablility of the repo
+        // maybe handling the exception here allows easier reusablility of the repo?
         boolean isSuccessfulDelete = charaRepo.deletePetFromMarketPlace(txnDetails.getPetId());
         log.info("deleting pet successful? {}", isSuccessfulDelete);
         if (!isSuccessfulDelete) {
@@ -95,7 +95,7 @@ public class PetAdoptionService {
 
     }
 
-    public List<TransactionLog> getTxnLogByUserid(int userid) {
+    public List<TransactionLog> getTxnLogByUserid(String userid) {
         return txnLogRepo.getTransactionsByUserid(userid);
     }
 

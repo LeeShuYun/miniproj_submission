@@ -10,14 +10,14 @@ import * as PlayerActions from "../_ngrx_store/player.actions";
 //REDUCER ====================================================
 export interface PetState {
   petId: number,
-  userid: number,
+  userid: string,
   image: string,
   healing: number
 }
 
 export const initialState: PetState = {
   petId: 2,
-  userid: 2,
+  userid: "000002",
   image: "dragon.avif",
   healing: 5
 }

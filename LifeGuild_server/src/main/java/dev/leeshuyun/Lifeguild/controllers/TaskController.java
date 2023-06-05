@@ -41,7 +41,7 @@ public class TaskController {
         JsonObject userId = JsonUtil.toJson(userid).asJsonObject();
         log.info("/api/task: getting tasks from mySQL for userid: %s".formatted(userId.getString("userid")));
 
-        Task task = taskSvc.getAllTasksByUserId(Integer.valueOf(userId.getString("userid")));
+        Task task = taskSvc.getAllTasksByUserId(userId.getString("userid"));
 
         JsonObjectBuilder arrBuilder = Utils.taskToJsonObjBuilder(task);
 

@@ -1,6 +1,6 @@
 //userid will be in localStorage when logged in
 export interface Player {
-  userid: number;
+  userid: string;
   characterid: number;
   health: number
   coinwallet: number;

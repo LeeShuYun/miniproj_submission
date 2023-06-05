@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reward {
-    int userid;
+    String userid;
     int rewardid;
     String title;
     int cost;
@@ -30,7 +30,7 @@ public class Reward {
 
     @Override
     public String toString() {
-        return "Reward [userid=%d, rewardid=%d, title=%s,cost=%d,dateCreated=%s]"
+        return "Reward [userid=%s, rewardid=%d, title=%s,cost=%d,dateCreated=%s]"
                 .formatted(userid, rewardid, title, cost, dateCreated.toString());
     }
 
@@ -51,7 +51,7 @@ public class Reward {
     public static Reward createRewardFromJsonObj(JsonObject jsonObj) {
         logger.error("createRewardFromJsonObj>> " + jsonObj.getString("dateCreated"));
         Reward reward = Reward.builder()
-                .userid(Integer.valueOf(jsonObj.getString("userid")))
+                .userid(jsonObj.getString("userid"))
                 .rewardid(jsonObj.getInt("rewardid"))
                 .title(jsonObj.getString("title"))
                 .cost(jsonObj.getInt("cost"))
@@ -59,7 +59,5 @@ public class Reward {
                 .build();
         return reward;
     }
-
-
 
 }

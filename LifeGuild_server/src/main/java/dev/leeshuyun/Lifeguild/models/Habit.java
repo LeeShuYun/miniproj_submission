@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Habit {
-    int userid;
+    String userid;
     int habitid;
     String title;
     String isGoodorBadHabit; // good, bad, both
@@ -32,7 +32,7 @@ public class Habit {
 
     public static Habit createDailyFromJsonObj(JsonObject jsonObj) {
         Habit habit = Habit.builder()
-                .userid(jsonObj.getInt("userid"))
+                .userid(jsonObj.getString("userid"))
                 .habitid(jsonObj.getInt("habitid"))
                 .title(jsonObj.getString("title"))
                 .isGoodorBadHabit(jsonObj.getString("isGoodorBadHabit"))

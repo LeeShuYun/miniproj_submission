@@ -12,40 +12,20 @@ import { Player } from '../_shared/models';
 })
 export class PetsComponent {
 
-  testPetTrade1: PetInstance = {
-    userid: 1,
-    petId: 1,
-    image: "R2D2.webp",
-    healing: 7,
-  }
-  testPetTrade2: PetInstance = {
-    userid: 1,
-    petId: 3,
-    image: "kirby.webp",
-    healing: 7,
-  }
-
-
   playerPet: PetInstance = {
-    userid: 2,
+    userid: "98c2bce4",
     petId: 2,
     image: "cat.webp",
     healing: 3,
   }
-  petForTradeList: PetInstance[] = [
-    // this.testPetTrade1,
-    // this.testPetTrade2,
-    // this.testPetTrade1,
-    // this.testPetTrade2
-  ];
-  // playerPet!: PetInstance;
-  tradeablePet: PetInstance = this.testPetTrade1
+  petForTradeList: PetInstance[] = [];
+
+  tradeablePet!: PetInstance;
   isTradeSuccess!: boolean;
-  // userid!: string;
   unlockablePets!: PetInstance[];
 
   player = {
-    userid: 0,
+    userid: "00000000",
     characterid: 0,
     health: 0,
     coinwallet: 20,
@@ -60,7 +40,6 @@ export class PetsComponent {
 
   constructor(
     private charaSvc: CharacterService,
-    private fb: FormBuilder,
     public playerStateSvc: PlayerstateService) {
     //wire it up to the global service state
 

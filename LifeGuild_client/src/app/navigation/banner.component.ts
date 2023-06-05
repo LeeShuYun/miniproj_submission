@@ -16,7 +16,7 @@ export class BannerComponent implements OnInit {
   //I want to make the service public and use data directly from sharedNode but doesn't work
   // player: Player =
   //   {
-  //     userid: 2,
+  //     userid: "000002",
   //     characterid: 2,
   //     coinwallet: 100,
   //     health: 0,

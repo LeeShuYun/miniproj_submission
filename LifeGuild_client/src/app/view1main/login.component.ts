@@ -16,7 +16,6 @@ import { PlayerstateService } from '../_shared/playerstate.service';
 export class LoginComponent {
   form!: FormGroup;
   jwtHelper!: JwtHelperService;
-  isLoggedIn: boolean = false;
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -29,11 +28,6 @@ export class LoginComponent {
 
   ngOnInit(): void {
     console.log("login page loading...")
-    //user check
-    // console.log("checking if user is logged in");
-    // if (!!localStorage.getItem('jwtToken')) {
-    //   this.router.navigate(['/landing', 'habits']);
-    // }
 
     this.form = this.fb.group({
       email: this.fb.control('test@test.com', [
@@ -82,7 +76,7 @@ export class LoginComponent {
             console.log("set character, pet and userid into localstorage")
             localStorage.setItem("character", JSON.stringify(character))
             localStorage.setItem("pet", JSON.stringify(pet))
-            localStorage.setItem("userid", JSON.stringify(character.userid));
+            localStorage.setItem("userid", character.userid);
 
             console.log("LoginComponent>>>>> checking that userid is set: ", localStorage.getItem("userid"));
 
@@ -104,7 +98,6 @@ export class LoginComponent {
             this.playerStateSvc.sharedNode = player
 
 
-            this.authSvc.isLoggedIn = true;
             // this.store.dispatch(PlayerActions.login());
             console.log("LoginComponent>>> User is logged in. redirecting to landing");
             this.router.navigate(['/landing', 'habits']);

@@ -23,7 +23,7 @@ export const initialState: State =
   counter: 0,
   isGameSectionLocked: true,
   character: {
-    userid: 2,
+    userid: "000002",
     characterid: 2,
     health: 100,
     coinwallet: 0,

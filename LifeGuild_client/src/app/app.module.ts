@@ -12,7 +12,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HabitsComponent } from './view3habits/habits.component';
 import { CreditsComponent } from './credits/credits.component';
-import { BearerTokenInterceptor } from './_helper/auth.interceptor';
+import { BearerTokenInterceptor, httpInterceptorProviders } from './_helper/auth.interceptor';
 import { RegisterComponent } from './view1main/register.component';
 import { LoginComponent } from './view1main/login.component';
 import { PetsComponent } from './view4pets/pets.component';
@@ -36,9 +36,8 @@ import { petReducer } from './_ngrx_store/pet.reducer';
 import { counterReducer } from '../app/_ngrx_store/counter.reducer';
 import { gameSectionReducer } from './_ngrx_store/game-section.redux';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
-import { TestComponent } from '../app/_ngrx_store/gameunlock_final/test.component';
 import { GameComponent } from './view6/game.component';
-
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -62,7 +61,6 @@ import { GameComponent } from './view6/game.component';
     StatusComponent,
     TermsOfAgreementComponent,
     ConfirmEmailComponent,
-    TestComponent,
     GameComponent,
   ],
   imports: [
@@ -88,13 +86,19 @@ import { GameComponent } from './view6/game.component';
       router: routerReducer
     }),
     // Connects RouterModule with StoreModule, uses MinimalRouterStateSerializer by default
-    StoreRouterConnectingModule.forRoot() //ngrx
+    StoreRouterConnectingModule.forRoot(), //ngrx
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('jwt');
+        }
+        ,
+        allowedDomains: ["localhost:8080", "https://miniproj-server-production.up.railway.app"],
+      }
+    })
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: BearerTokenInterceptor,
-    multi: true,
-  },],
+  // providers: [httpInterceptorProviders],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

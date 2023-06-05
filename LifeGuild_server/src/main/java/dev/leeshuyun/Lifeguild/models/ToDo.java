@@ -9,13 +9,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ToDo {
-    int userid;
+    String userid;
     int todoid;
     String title;
     String difficulty;
@@ -24,16 +26,18 @@ public class ToDo {
     Boolean isComplete;
     Date dateCreated;
 
-    @Override
-    public String toString() {
-        return "ToDo [userid=%d, todoid=%d, title=%s,difficulty=%s,dueDate=%s, priority=%s, isComplete=%s, dateCreated=%s]"
-                .formatted(userid, todoid, title, difficulty, dueDate.toString(), priority, isComplete.toString(),
-                        dateCreated.toString());
-    }
+    // @Override
+    // public String toString() {
+    // return "ToDo [userid=%d, todoid=%d, title=%s,difficulty=%s,dueDate=%s,
+    // priority=%s, isComplete=%s, dateCreated=%s]"
+    // .formatted(userid, todoid, title, difficulty, dueDate.toString(), priority,
+    // isComplete.toString(),
+    // dateCreated.toString());
+    // }
 
     public static ToDo createDailyFromJsonObj(JsonObject jsonObj) {
         ToDo todo = ToDo.builder()
-                .userid(jsonObj.getInt("userid"))
+                .userid(jsonObj.getString("userid"))
                 .todoid(jsonObj.getInt("todoid"))
                 .title(jsonObj.getString("title"))
                 .difficulty(jsonObj.getString("difficulty"))

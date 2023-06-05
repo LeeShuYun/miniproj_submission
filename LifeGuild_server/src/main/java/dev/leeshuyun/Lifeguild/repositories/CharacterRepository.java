@@ -39,61 +39,47 @@ public class CharacterRepository {
     private JdbcTemplate jdbcTemplate;
     GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
-    public CharacterDetails getCharacterByUserId(int userid) {
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_CHARACTER_BY_USERID,
-                userid);
-        CharacterDetails cd = new CharacterDetails();
-        if (!rs.next())
-            return cd;
-
-        cd.setUserid(rs.getInt("userid"));
-        cd.setCharacterid(rs.getInt("characterid"));
-        cd.setHealth(rs.getInt("health"));
-        cd.setCoinwallet(rs.getInt("coinwallet"));
-        cd.setCurrentpetid(rs.getInt("currentpetid"));
-        cd.setImageUrl(rs.getString("image_url"));
-        return cd;
-
-        // return jdbcTemplate.queryForObject(SQL_GET_CHARACTER_BY_USERID,
-        // BeanPropertyRowMapper.newInstance(CharacterDetails.class), userid);
+    public CharacterDetails getCharacterByUserId(String userid) {
+        return jdbcTemplate.queryForObject(SQL_GET_CHARACTER_BY_USERID,
+                BeanPropertyRowMapper.newInstance(CharacterDetails.class), userid);
     }
 
     // reusable, cool.
-    public void updateBalance(int userid, int amount) throws TradePetFailedException {
+    public void updateBalance(String userid, int amount) throws TradePetFailedException {
         // template.update returns the number of rows affected, so if no rows affected,
         // throw exception and trigger transaction rollback
         if (jdbcTemplate.update(SQL_UPDATE_USER_WALLET, amount, userid) <= 0)
             throw new TradePetFailedException("updating userid %s account failed".formatted(userid));
     }
 
-    public void addZenny(int userid, int amount) throws TradePetFailedException {
+    public void addZenny(String userid, int amount) throws TradePetFailedException {
         log.info("adding coins to the adoption agency(admin) {}", amount);
         updateBalance(userid, amount);
     }
 
-    public void deductZenny(int userid, int amount) throws TradePetFailedException {
+    public void deductZenny(String userid, int amount) throws TradePetFailedException {
         log.info("deducting coins from user {}, amount {}", userid, amount);
         updateBalance(userid, -amount);
     }
 
-    public void changePetOwner(int petid, int toUserId) throws TradePetFailedException {
+    public void changePetOwner(String petid, String toUserId) throws TradePetFailedException {
         if (jdbcTemplate.update(SQL_UPDATE_PET_OWNER, toUserId, petid) <= 0)
             throw new TradePetFailedException("updating  %s pet owner failed".formatted(petid));
     }
 
-    public void changeCurrentPet(int petid, int toUserId) throws TradePetFailedException {
+    public void changeCurrentPet(String petid, String toUserId) throws TradePetFailedException {
         if (jdbcTemplate.update(SQL_UPDATE_CHARACTER_PETID, petid, toUserId) <= 0)
             throw new TradePetFailedException("changeCurrentPet failed for userid %s".formatted(toUserId));
     }
 
-    public CharacterDetails getCharacterByUserId(String email) {
+    public CharacterDetails getCharacterByEmail(String email) {
         return jdbcTemplate.queryForObject(SQL_GET_CHARACTER_BY_EMAIL,
                 BeanPropertyRowMapper.newInstance(CharacterDetails.class), email);
     }
 
     // future use
     // TODO - for later. fix the healingamount and healing it caused a bug
-    public List<Pet> getPetListByUserid(int userid) {
+    public List<Pet> getPetListByUserid(String userid) {
         return jdbcTemplate.query(SQL_GET_ALL_PETS_BY_USERID, new ResultSetExtractor<List<Pet>>() {
             @Override
             @Nullable
@@ -103,8 +89,8 @@ public class CharacterRepository {
 
                 while (rs.next()) {
                     Pet pet = new Pet();
-                    pet.setPetid(rs.getInt("petid"));
-                    pet.setUserid(rs.getInt("userid"));
+                    pet.setPetid(rs.getString("petid"));
+                    pet.setUserid(rs.getString("userid"));
                     pet.setHealing(rs.getInt("healingamount"));
                     pet.setImage(rs.getString("image"));
                     petList.add(pet);
@@ -114,12 +100,12 @@ public class CharacterRepository {
         });
     }
 
-    // public Pet getPetByUserid(int userid) {
+    // public Pet getPetByUserid(String userid) {
     // return jdbcTemplate.queryForObject(SQL_GET_ALL_PETS_BY_USERID,
     // BeanPropertyRowMapper.newInstance(Pet.class), userid);
     // }
 
-    public Pet getPetByUserid(int userid) {
+    public Pet getPetByUserid(String userid) {
         SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_ALL_PETS_BY_USERID, userid);
         // if there's nothing next, then we can return empty
         Pet pet = new Pet();
@@ -127,32 +113,31 @@ public class CharacterRepository {
         if (!rs.next()) {
             return pet;
         }
-        pet.setPetid(rs.getInt("petid"));
-        pet.setUserid(rs.getInt("userid"));
+        pet.setPetid(rs.getString("petid"));
+        pet.setUserid(rs.getString("userid"));
         pet.setHealing(rs.getInt("healingamount"));
         pet.setImage(rs.getString("image"));
         return pet;
     }
 
-    public Pet addDefaultPet(int userid) throws RegisteringUserFailedException {
-        log.info("CharacterRepository>Inserting starter Pet %d".formatted(userid));
-
-        // test
-        int USERID = 0;
+    public Pet addDefaultPet(String userid, String petid) throws RegisteringUserFailedException {
+        log.info("CharacterRepository>Inserting starter Pet %s".formatted(userid));
 
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement prepState = conn.prepareStatement(SQL_INSERT_PET, Statement.RETURN_GENERATED_KEYS);
-            prepState.setInt(1, USERID);
-            prepState.setInt(2, 15);
-            prepState.setString(3, "dragon.avif");
+            prepState.setString(1, petid);
+            prepState.setString(2, userid);
+            prepState.setInt(3, 15);
+            prepState.setString(4, "dragon.avif");
             return prepState;
         }, generatedKeyHolder);
 
         // Get auto-incremented ID
-        int petid = generatedKeyHolder.getKey().intValue();
-        log.info("rowsAffected = {}, petid={}", rowsAffected, petid);
-        if (petid < 2) {
-            throw new RegisteringUserFailedException("cannot make new starter pet for userid=%d".formatted(USERID));
+        // int petid = generatedKeyHolder.getKey().intValue();
+        log.info("rowsAffected = {}, petid={}", rowsAffected);
+
+        if (rowsAffected == 0) {
+            throw new RegisteringUserFailedException("cannot make new starter pet for userid=%s".formatted(userid));
         }
         Pet starterPet = new Pet(userid);
         starterPet.setPetid(petid);
@@ -162,14 +147,14 @@ public class CharacterRepository {
     }
 
     // MUST have a new pet created first before accessing this
-    // needs testing
-    public CharacterDetails addDefaultCharacterWithPet(int userid, int petid) throws RegisteringUserFailedException {
-        log.info("CharacterRepository>Inserting starter character %d".formatted(userid));
+    public CharacterDetails addDefaultCharacterWithPet(String userid, String petid)
+            throws RegisteringUserFailedException {
+        log.info("CharacterRepository>Inserting starter character %s".formatted(userid));
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement prepState = conn.prepareStatement(SQL_INSERT_DEFAULT_CHARACTER,
                     Statement.RETURN_GENERATED_KEYS);
-            prepState.setInt(1, userid);
-            prepState.setInt(2, petid);
+            prepState.setString(1, userid);
+            prepState.setString(2, petid);
             prepState.setString(3, "character.avif");
             return prepState;
         }, generatedKeyHolder);
@@ -184,10 +169,6 @@ public class CharacterRepository {
         return newDefaultChara;
     }
 
-    public Pet getPetByUserId(int userid) {
-        return null;
-    }
-
     public List<Pet> getDefaultTradablePets() {
 
         return jdbcTemplate.query(SQL_GET_ALL_MARKETPLACEPETS, new ResultSetExtractor<List<Pet>>() {
@@ -200,8 +181,8 @@ public class CharacterRepository {
                 while (rs.next()) {
                     Pet pet = new Pet();
                     // System.out.println(rs.getInt("petid"));
-                    pet.setPetid(rs.getInt("petid"));
-                    pet.setUserid(rs.getInt("userid"));
+                    pet.setPetid(rs.getString("petid"));
+                    pet.setUserid(rs.getString("userid"));
                     pet.setHealing(rs.getInt("healingamount"));
                     pet.setImage(rs.getString("image"));
                     petList.add(pet);
@@ -211,7 +192,7 @@ public class CharacterRepository {
         });
     }
 
-    public boolean deletePetFromMarketPlace(int petId) {
+    public boolean deletePetFromMarketPlace(String petId) {
         int rowaffected = jdbcTemplate.update(SQL_DELETE_PET_FROM_MARKETPLACE, petId);
         log.info("pet with id {} deleted from marketplace", petId);
         return rowaffected > 0 ? true : false;

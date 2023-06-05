@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import dev.leeshuyun.Lifeguild.auth.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 
 // @configuration and @EnableWebSecurity needs to be together in Springboot3.0
@@ -29,12 +30,11 @@ public class JWTSecurityConfiguration {
         http
                 .csrf() // disable csrf verification
                 .disable()
-                .cors() // allow Access Control headers for Angular (CORS)
-                .and()
+                // .cors() // allow Access Control headers for Angular (CORS)
+                // .and()
                 // get these whitelisted requests below to pass without authenticating
                 // usually used for login and account creation bc user don't have token yet
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 // .requestMatchers(HttpMethod.GET, "/api/v1/auth/**")
                 // .hasAuthority("SCOPE_read") // allows GET requests to Read

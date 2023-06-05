@@ -11,18 +11,25 @@
 }
 
 .player-pet {
-  display: absolute;
-  transform-origin: -100% 0;
+  /* display: absolute; */
+  /* transform-origin: -100% 0; */
   /* transform: translate(1200px, -230px); */
-  transform: translate(1200px, -90px);
+  /* transform: translate(1200px, -90px); */
+  /* background-color: aqua; */
+
 }
 
 .overlay-pet {
   position: absolute;
   /* top: 160px;
   left: 1200px; */
-  transition: .5s ease;
+  transform-origin: -100% 0;
+  width: 215px;
+  height: 215px;
+  transform: translate(1200px, -245px);
+  /* transition: .5s ease; */
   /* background-color: #181815; */
+
 }
 
 .overlay-character {

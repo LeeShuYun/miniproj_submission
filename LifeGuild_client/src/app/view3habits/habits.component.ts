@@ -367,6 +367,7 @@ export class HabitsComponent {
       }
     ).catch(error => console.log(error));
   }
+
   deleteDaily(index: number) {
     this.taskSvc.deleteDaily(this.dailies[index]).then(
       (result) => {
@@ -376,6 +377,7 @@ export class HabitsComponent {
     ).catch(error => console.log(error)
     );
   }
+
   deleteToDo(index: number) {
     this.taskSvc.deleteTodo(this.todos[index]).then(
       (result) => {
@@ -383,8 +385,8 @@ export class HabitsComponent {
         console.log('deleted todo: ', deletedTodo);
       }
     ).catch(error => console.log(error));
-
   }
+
   deleteReward(index: number) {
     this.taskSvc.deleteReward(this.rewards[index]).then(
       (result) => {

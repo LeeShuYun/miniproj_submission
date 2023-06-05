@@ -19,12 +19,12 @@ public class CharacterService {
     @Autowired
     private CharacterRepository charaRepo;
 
-    public CharacterDetails getCharacterByUserId(int userid) {
+    public CharacterDetails getCharacterByUserId(String userid) {
         return charaRepo.getCharacterByUserId(userid);
     }
 
-    public Pet getPetByUserId(int userid) {
-        return charaRepo.getPetByUserId(userid);
+    public Pet getPetByUserId(String userid) {
+        return charaRepo.getPetByUserid(userid);
     }
 
     // {"userid":2,"characterid":2,"health":100,
@@ -35,18 +35,18 @@ public class CharacterService {
     public boolean updateCharacterAndPet(JsonObject jsonRequest) throws UpdateCharacterAndPetException {
 
         CharacterDetails character = CharacterDetails.builder()
-                .userid(jsonRequest.getInt("userid"))
+                .userid(jsonRequest.getString("userid"))
                 .characterid(jsonRequest.getInt("characterid"))
                 .health(jsonRequest.getInt("health"))
                 .coinwallet(jsonRequest.getInt("coinwallet"))
-                .currentpetid(jsonRequest.getInt("currentpetid"))
+                .currentpetid(jsonRequest.getString("currentpetid"))
                 .imageUrl(jsonRequest.getString("image"))
                 .build();
 
         // TODO - the missing healing bug is affecting here too
         Pet pet = Pet.builder()
-                .petid(jsonRequest.getInt("currentpetid"))
-                .userid(jsonRequest.getInt("userid"))
+                .petid(jsonRequest.getString("currentpetid"))
+                .userid(jsonRequest.getString("userid"))
                 // .healing(jsonRequest.getInt("healing"))
                 .healing(6)
                 .image(jsonRequest.getString("petimage"))

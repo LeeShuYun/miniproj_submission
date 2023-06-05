@@ -18,8 +18,8 @@ import lombok.ToString;
 @ToString
 public class TransactionLog {
     String transactionId;
-    int fromUserId;
-    int toUserId;
+    String fromUserId;
+    String toUserId;
     String petId;
     int amount;
     Instant timestamp;

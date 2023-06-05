@@ -12,11 +12,9 @@ import { LandingComponent } from './signedin/landing.component';
 import { SearchresultComponent } from './view2library/searchresult.component';
 import { ConfirmEmailComponent } from './view1main/confirm-email.component';
 import { GameComponent } from './view6/game.component';
-import { TestComponent } from './view4pets/test.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  // { path: '', component: TestComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'confirm', component: ConfirmEmailComponent },

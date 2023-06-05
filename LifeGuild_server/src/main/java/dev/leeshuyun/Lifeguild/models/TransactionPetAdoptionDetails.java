@@ -14,9 +14,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class TransactionPetAdoptionDetails {
-    int fromUserId;
-    int toUserId;
-    int petId;
+    String fromUserId;
+    String toUserId;
+    String petId;
     int amount;
 
 }

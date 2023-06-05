@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.leeshuyun.Lifeguild.models.UserLoginDetails;
+import dev.leeshuyun.Lifeguild.exceptions.EmailConfirmationException;
 import dev.leeshuyun.Lifeguild.exceptions.RegisteringUserFailedException;
 import dev.leeshuyun.Lifeguild.models.Account;
 import dev.leeshuyun.Lifeguild.models.CharacterDetails;
@@ -81,17 +82,20 @@ public class AuthController {
         public ResponseEntity<String> confirmEmail(@RequestBody String payload) {
                 logger.info("/api/auth/register/confirm-email >>> " + payload);
                 JsonObject jsonObj = JsonUtil.toJson(payload).asJsonObject();
-                JsonObjectBuilder jsonB = Json.createObjectBuilder();
-                Boolean isUserConfirmed = authSvc.confirmUserEmailWithCode(jsonObj);
-                if (isUserConfirmed) {
-                        jsonB.add("isUserConfirmed", true);
-                        return ResponseEntity.ok().body(jsonB.build().toString());
+                try {
+                        JsonObject jwtToken = authSvc.confirmUserEmailWithCode(jsonObj);
+                        // jsonB.add("isUserConfirmed", true);
+                        log.info("email confirmed");
+                        return ResponseEntity.ok().body(jwtToken.toString());
+                } catch (EmailConfirmationException e) {
+                        JsonObjectBuilder response = Json.createObjectBuilder()
+                                        .add("isUserConfirmed", false);
+                        return ResponseEntity
+                                        .status(HttpStatus.NOT_FOUND)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(response.build().toString());
+
                 }
-                jsonB.add("isUserConfirmed", false);
-                return ResponseEntity
-                                .status(HttpStatus.NOT_FOUND)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(jsonB.build().toString());
         }
 
         // done and tested
@@ -101,14 +105,12 @@ public class AuthController {
 
                 JsonObject jsonObj = JsonUtil.toJson(body).asJsonObject();
 
-                // register user. 0 for fail, >2 for success.
-                // 1 and 2 are default admin and demo acc respectively
+                // register user
                 try {
-                        // int userid = authSvc.registerUser(jsonObj);
-                        int userid = 2; // TODO this is a temp
+                        String userid = authSvc.registerUser(jsonObj);
                         JsonObjectBuilder jsonB = Json.createObjectBuilder()
                                         .add("message", "email sent")
-                                        .add("userid", Integer.toString(userid));
+                                        .add("userid", userid);
 
                         return ResponseEntity.ok().body(jsonB.build().toString());
                 } catch (RegisteringUserFailedException e) {
@@ -120,7 +122,5 @@ public class AuthController {
                 }
 
         }
-
-
 
 }

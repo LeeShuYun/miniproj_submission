@@ -49,6 +49,7 @@ export class ConfirmEmailComponent implements OnInit {
       this.authSvc.confirmEmail(email, val.code)
         .then((result) => {
           console.log("email confirmed!", result);
+          localStorage.setItem("jwt", result.jwt);
           this.router.navigate(['/landing', 'habits']);
         })
         .catch(error => {

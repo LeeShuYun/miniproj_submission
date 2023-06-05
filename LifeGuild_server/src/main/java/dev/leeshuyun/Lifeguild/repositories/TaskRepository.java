@@ -37,12 +37,12 @@ public class TaskRepository {
     // Create GeneratedKeyHolder object
     GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
-    public List<Habit> getHabitsByUserId(int userid) {
+    public List<Habit> getHabitsByUserId(String userid) {
         SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_HABITS_BY_USERID, userid);
         List<Habit> habits = new ArrayList<Habit>();
         while (rs.next()) {
             Habit habit = new Habit();
-            habit.setUserid(rs.getInt("userid"));
+            habit.setUserid(rs.getString("userid"));
             habit.setHabitid(rs.getInt("habitid"));
             habit.setTitle(rs.getString("title"));
             habit.setIsGoodorBadHabit(rs.getString("is_good_or_bad_habit"));
@@ -56,13 +56,13 @@ public class TaskRepository {
         return habits;
     }
 
-    public List<ToDo> getTodosByUserId(int userid) {
+    public List<ToDo> getTodosByUserId(String userid) {
         SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_TODOS_BY_USERID, userid);
         List<ToDo> todos = new ArrayList<ToDo>();
 
         while (rs.next()) {
             ToDo todo = new ToDo();
-            todo.setUserid(rs.getInt("userid"));
+            todo.setUserid(rs.getString("userid"));
             todo.setTodoid(rs.getInt("todoid"));
             todo.setTitle(rs.getString("title"));
             todo.setDifficulty(rs.getString("difficulty"));
@@ -77,12 +77,12 @@ public class TaskRepository {
         return todos;
     }
 
-    public List<Daily> getDailiesByUserId(int userid) {
+    public List<Daily> getDailiesByUserId(String userid) {
         SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_DAILIES_BY_USERID, userid);
         List<Daily> dailies = new ArrayList<Daily>();
         while (rs.next()) {
             Daily daily = new Daily();
-            daily.setUserid(rs.getInt("userid"));
+            daily.setUserid(rs.getString("userid"));
             daily.setDailyid(rs.getInt("dailyid"));
             daily.setTitle(rs.getString("title"));
             daily.setDifficulty(rs.getString("difficulty"));
@@ -95,13 +95,13 @@ public class TaskRepository {
         return dailies;
     }
 
-    public List<Reward> getRewardsByUserId(int userid) {
+    public List<Reward> getRewardsByUserId(String userid) {
         SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_REWARDS_BY_USERID, userid);
         List<Reward> rewards = new ArrayList<Reward>();
 
         while (rs.next()) {
             Reward reward = new Reward();
-            reward.setUserid(rs.getInt("userid"));
+            reward.setUserid(rs.getString("userid"));
             reward.setRewardid(rs.getInt("rewardid"));
             reward.setTitle(rs.getString("title"));
             reward.setCost(rs.getInt("cost"));
@@ -118,7 +118,7 @@ public class TaskRepository {
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT_HABIT,
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, habit.getUserid());
+            preparedStatement.setString(1, habit.getUserid());
             preparedStatement.setString(2, habit.getTitle());
             preparedStatement.setString(3, habit.getIsGoodorBadHabit());
             preparedStatement.setString(4, habit.getDifficulty());
@@ -142,7 +142,7 @@ public class TaskRepository {
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT_REWARD,
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, reward.getUserid());
+            preparedStatement.setString(1, reward.getUserid());
             preparedStatement.setString(2, reward.getTitle());
             preparedStatement.setInt(3, reward.getCost());
             preparedStatement.setDate(4, new Date(System.currentTimeMillis()));
@@ -161,7 +161,7 @@ public class TaskRepository {
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT_TODO,
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, todo.getUserid());
+            preparedStatement.setString(1, todo.getUserid());
             preparedStatement.setString(2, todo.getTitle());
             preparedStatement.setString(3, todo.getDifficulty());
             preparedStatement.setDate(4, todo.getDueDate());
@@ -183,7 +183,7 @@ public class TaskRepository {
         int rowsAffected = jdbcTemplate.update(conn -> {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT_DAILY,
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, daily.getUserid());
+            preparedStatement.setString(1, daily.getUserid());
             preparedStatement.setString(2, daily.getTitle());
             preparedStatement.setString(3, daily.getDifficulty());
             preparedStatement.setBoolean(4, daily.getIsComplete());
@@ -198,7 +198,7 @@ public class TaskRepository {
         return id;
     }
 
-    public boolean spendCoin(int userid, int amountSpent) {
+    public boolean spendCoin(String userid, int amountSpent) {
 
         return true;
     }
@@ -275,7 +275,6 @@ public class TaskRepository {
         return rowsaffected > 0 ? true : false;
     }
 
-    // TODO
     public boolean updateToDo(ToDo todo) {
         int rowsAffected;
         log.info("todo {} updated", todo.toString());

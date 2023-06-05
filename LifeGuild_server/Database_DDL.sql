@@ -3,7 +3,7 @@ create database if not exists lifeguild;
 use lifeguild;
 
 create table if not exists userbase(
-	userid int auto_increment,
+	userid varchar(8) not null,
 	firstname varchar(200),
 	lastname varchar(200),
 	email varchar(200) not null unique,
@@ -20,8 +20,8 @@ create table if not exists userbase(
 
 -- many habits to 1 userid
 create table if not exists habits(
-	userid int not null,
-	habitid int auto_increment, 
+	userid varchar(8) not null,
+	habitid int unsigned auto_increment, 
 	title varchar(500) not null, -- description of habit
 	is_good_or_bad_habit varchar(4) not null, -- good, bad, both.  default 'both'
 	difficulty varchar(4) not null, -- high, med, low.  default 'low'
@@ -34,8 +34,8 @@ create table if not exists habits(
 
 -- many todoid to 1 userid
 create table if not exists todos(
-	userid int not null,
-    todoid int auto_increment,
+	userid varchar(8) not null,
+    todoid int unsigned auto_increment,
 	title varchar(500) not null,
 	difficulty varchar(4), -- high, med, low.  default 'low'
 	due_date Date, -- format: yyyy-mm-dd
@@ -48,8 +48,8 @@ create table if not exists todos(
 
 -- many dailies to 1 userid
 create table if not exists dailies(
-	userid int not null,
-    dailyid int auto_increment,
+	userid varchar(8) not null,
+    dailyid int unsigned auto_increment,
     title varchar(500) not null,
 	difficulty varchar(8), -- high, med, low.  default 'low'
 	is_complete boolean, -- default false
@@ -60,8 +60,8 @@ create table if not exists dailies(
 
 -- many rewardid to 1 userid
 create table if not exists rewards(
-	userid int not null,
-    rewardid int auto_increment,
+	userid varchar(8) not null,
+    rewardid int unsigned auto_increment,
 	title varchar(500) not null,
 	cost int not null,
     date_created date,
@@ -82,9 +82,8 @@ create table if not exists rewards(
 --   
   -- 1 user 1 pet. for now every new acc gets 1 pet dragon
   create table if not exists pets (
-	--  petid varchar(8) not null, -- starts from 00000001
-    petid int auto_increment,
-    userid int not null, 
+	petid varchar(8) not null, 
+    userid varchar(8) not null, 
     -- petname varchar(30) not null default (species),
     -- species varchar(30) not null,
     healingamount int not null,
@@ -95,8 +94,8 @@ create table if not exists rewards(
   -- to hold the pets for trade
   create table if not exists petmarketplace (
 	--  petid varchar(8) not null, -- starts from 00000001
-    petid int not null,
-    userid int not null, 
+    petid varchar(8) not null,
+    userid varchar(8) not null, 
     -- petname varchar(30) not null default (species),
     -- species varchar(30) not null,
     healingamount int not null,
@@ -104,15 +103,13 @@ create table if not exists rewards(
     primary key (petid)
 );
 
-select * from userbase where email = "test@test.com";
 
 -- database to draw default pets from. each user who makes an account will get a row of pet inserts for now
   create table if not exists petblueprints (
-	petid varchar(8) not null, -- starts from 00000001 and increments. 
+	blueprintid varchar(8) not null primary key,
     species varchar(30) not null,
     healingamount int not null,
-    image varchar(50) not null,
-    primary key (petid)
+    image varchar(50) not null
 );
 
 -- weapons are the ones with their own critrate 
@@ -120,9 +117,9 @@ create table if not exists weapons (
 	weaponid varchar(8) not null, -- starts from 00000001 and increments. admin can add more
     weaponname varchar(20) not null,
     weapontype varchar (30) not null,
-	baseattack int not null,
+	baseattack int unsigned not null,
     weaponfactor decimal(2,1) not null, 
-	critrate int not null,
+	critrate int not null, -- negative crit is possible, you miss so badly you do lesser dmg
     primary key(weaponid)
 );
 
@@ -136,19 +133,19 @@ create table if not exists weapons (
 -- writer => unlock at novice level 10 - gains exp by writing story campaigns. unlocks the writer campaign upload page
 -- reader => unlock at novice level 10 - gains exp by reading a ton of books. gain access to library and book search :D
 create table if not exists characterdetails(
-	userid int not null,
-    characterid int auto_increment,
+	userid varchar(8) not null,
+    characterid int unsigned auto_increment,
    --  charactername varchar (100) not null,
-    health int not null default 100,
+    health int unsigned not null default 100,
 --     experience int not null default 0,
 --     mana int not null default 100,
 --     novicelevel int not null default 1,
 --     readerlevel int not null default 1,
 --     characterlevel int not null default 1,
 --     writerlevel int not null default 1,
-    coinwallet int not null default 0,
+    coinwallet int unsigned not null default 0,
 --     gachacurrency int not null default 0, -- future impl for fancy equipment and mounts
-    currentpetid int,
+    currentpetid varchar(8),
     -- unlockedpets varchar(300), -- an array of boolean, each letter = 1 pet eg. TFTFTFFF = pet1,3,5 unlocked. 300 pets limit for now
 --     currentweaponid varchar(8), -- null = barehand
 --     unlockedweapons varchar(300), -- an array of boolean, each letter = 1 weapon eg. TFTFTFFF = weapon1,3,5 unlocked
@@ -157,40 +154,37 @@ create table if not exists characterdetails(
     primary key (characterid),
     foreign key (userid) references userbase (userid),
 --     foreign key (currentweaponid) references weapons (weaponid),
-    foreign key (currentpetid) references pets (petid)
+    foreign key characterdetails (currentpetid) references pets (petid)
 );
 
 -- each one is untradeable but can be unlocked. 1 user to 1 steed 
 create table if not exists noblesteeds (
 	steedid varchar(8) not null, -- starts from 00000001 and increments. tracked in angular.
-    userid int not null,
-    speed int not null,
+    userid varchar(8) not null,
+    speed int not null, -- yes you can have negative speed mounts LOL. what if tortoise
     primary key (steedid)
 );
 
 create table if not exists guilds(
-	guild_id int not null primary key,
-    guild_level int not null, 
+	guild_id int unsigned not null primary key,
+    guild_level int unsigned not null, 
     skills varchar(100) not null,
 	date_created date
 );
 
 create table if not exists guild_to_user(
-	user_id int not null primary key,
-    guild_id int not null ,
+	userid varchar(8) not null primary key,
+    guild_id  int unsigned not null ,
     date_entered date,
-    foreign key guild_to_user (guild_id) references guilds (guild_id),
-    foreign key guild_to_user (user_id) references userbase(userid)
+    foreign key (guild_id) references guilds (guild_id),
+    foreign key (userid) references userbase(userid)
 );
 
--- userid, health, damag
+-- user 1 to 1 to enemy
 create table if not exists enemy(
-enemyid int not null primary key,
-	userid int not null,
-    health int not null ,
-    damage int not null,
+	enemyid int unsigned not null primary key,
+	userid varchar(8) not null,
+    health int unsigned not null ,
+    damage int unsigned not null,
     foreign key enemy (userid) references userbase(userid)
 );
-
-
-select * from characterdetails where userid = 2;
