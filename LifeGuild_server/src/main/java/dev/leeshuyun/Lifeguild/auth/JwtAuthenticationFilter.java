@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // header name usually is Authorization
         final String authHeader = request.getHeader("Authorization");
         final String jwtToken;
-        final String userEmail;
+        final String userid;
 
         // check for absence of jwt token in header for early return.
         // remb the space at the end, "Bearer " not "Bearer"
@@ -53,24 +53,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // get token string after "Bearer "
         jwtToken = authHeader.substring(7);
 
-        // now we extract userEmail from token using the jwt service.
-        // user email is called username here bc username is their primary key
-        userEmail = jwtService.extractUsername(jwtToken);
+        // now we extract userid from token
+        userid = jwtService.extractUserid(jwtToken);
 
         // check if we need to authenticate user
         // if user authenticated, then pass straight to dispatcher servlet instead of
         // going thru this auth process
         // when SecurityContextHolder.getContext().getAuthentication() is null it means
         // user not yet authenticated
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            // fetch user details from database
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+        if (userid != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // fetch user details from database. can't rename it, but we're getting User
+            // using the userid, not username
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userid);
             // check if the token is valid or not
             if (jwtService.isTokenValid(jwtToken, userDetails)) {
                 // this authToken is needed to update security context.
                 // we don't have creds so null
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userEmail,
+                        userid,
                         null,
                         userDetails.getAuthorities());
                 // give the authToken a few more details out of our http request

@@ -22,7 +22,8 @@ export class LoginComponent {
     private authSvc: AuthService,
     private charaSvc: CharacterService,
     private store: Store,
-    private playerStateSvc: PlayerstateService
+    private playerStateSvc: PlayerstateService,
+    jwtHelper: JwtHelperService
   ) {
   }
 
@@ -67,7 +68,8 @@ export class LoginComponent {
             console.log("login result: ", result)
             // const decodedToken = this.jwtHelper.decodeToken(result); //wait do we need to decode?
             // console.log("decoded Token: ", decodedToken)
-            // localStorage.setItem("jwtToken", result['jwtToken']);
+            console.log("jwt token", result.jwt)
+            localStorage.setItem("jwt", result['jwt']);
 
             const { character, pet } = result;
             console.log("character", character);
@@ -78,7 +80,7 @@ export class LoginComponent {
             localStorage.setItem("pet", JSON.stringify(pet))
             localStorage.setItem("userid", character.userid);
 
-            console.log("LoginComponent>>>>> checking that userid is set: ", localStorage.getItem("userid"));
+            // console.log("LoginComponent>>>>> checking that userid is set: ", localStorage.getItem("userid"));
 
             const player = {
               userid: character.userid,

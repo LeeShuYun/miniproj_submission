@@ -50,6 +50,7 @@ export class ConfirmEmailComponent implements OnInit {
         .then((result) => {
           console.log("email confirmed!", result);
           localStorage.setItem("jwt", result.jwt);
+          console.log("jwt set! you're logged in!")
           this.router.navigate(['/landing', 'habits']);
         })
         .catch(error => {

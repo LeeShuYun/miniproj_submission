@@ -50,9 +50,11 @@ public class PetAdoptionService {
         // check if there's the users first
         try {
 
-            Optional<User> fromUser = authRepo.findUserByUserId(txnDetails.getFromUserId());
-            Optional<User> toUser = authRepo.findUserByUserId(txnDetails.getToUserId());
-
+            User fromUser = authRepo.getUserByUserId(txnDetails.getFromUserId());
+            User toUser = authRepo.getUserByUserId(txnDetails.getToUserId());
+            if (null == fromUser.getUserid() || null == toUser.getUserid()) {
+                throw new TradePetFailedException("can't get user details");
+            }
         } catch (DataAccessException e) {
             throw new TradePetFailedException("pet trading details are wrong");
         }

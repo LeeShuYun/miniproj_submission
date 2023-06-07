@@ -12,6 +12,7 @@ import jakarta.json.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.leeshuyun.Lifeguild.models.UserLoginDetails;
+import dev.leeshuyun.Lifeguild.auth.JwtService;
 import dev.leeshuyun.Lifeguild.exceptions.EmailConfirmationException;
 import dev.leeshuyun.Lifeguild.exceptions.RegisteringUserFailedException;
 import dev.leeshuyun.Lifeguild.models.Account;
@@ -40,6 +42,9 @@ public class AuthController {
         @Autowired
         private AuthService authSvc;
 
+        @Autowired
+        private JwtService jwtSvc;
+
         @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<String> loginUser(@RequestBody String payload) {
                 logger.info("/api/auth/login >>> " + payload);
@@ -55,13 +60,13 @@ public class AuthController {
                                 .build();
                 // find the user
                 Optional<Account> account = authSvc.getUserByEmailAndPassword(loginDetails);
-
                 if (account.isEmpty()) {
                         return ResponseEntity.notFound().build();
                 }
 
                 // get the details, return character details and pet details
                 Account acc = account.get();
+                String jwt = jwtSvc.generateToken(account.get().getUser());
                 CharacterDetails chara = acc.getCharacterDetails();
                 JsonObjectBuilder charaDetailsBuilder = chara.toJSONObjBuilder();
                 Pet pet = acc.getCurrentpet();
@@ -71,25 +76,26 @@ public class AuthController {
                                 pet.toString());
                 JsonObjectBuilder responseBody = Json.createObjectBuilder()
                                 .add("character", charaDetailsBuilder)
-                                .add("pet", petDetailsBuilder);
+                                .add("pet", petDetailsBuilder)
+                                .add("jwt", jwt);
 
                 return ResponseEntity.ok().body(responseBody.build().toString());
 
         }
 
-        // done and tested
+        // done, not tested jwt version
         @PutMapping(path = "/register/confirm-email", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<String> confirmEmail(@RequestBody String payload) {
                 logger.info("/api/auth/register/confirm-email >>> " + payload);
                 JsonObject jsonObj = JsonUtil.toJson(payload).asJsonObject();
+                JsonObjectBuilder response = Json.createObjectBuilder();
                 try {
-                        JsonObject jwtToken = authSvc.confirmUserEmailWithCode(jsonObj);
-                        // jsonB.add("isUserConfirmed", true);
-                        log.info("email confirmed");
-                        return ResponseEntity.ok().body(jwtToken.toString());
+                        String jwtToken = authSvc.confirmUserEmailWithCode(jsonObj);
+                        response.add("jwt", jwtToken);
+                        log.info("email confirmed, responding with jwt token");
+                        return ResponseEntity.ok().body(response.build().toString());
                 } catch (EmailConfirmationException e) {
-                        JsonObjectBuilder response = Json.createObjectBuilder()
-                                        .add("isUserConfirmed", false);
+                        response.add("isUserConfirmed", false);
                         return ResponseEntity
                                         .status(HttpStatus.NOT_FOUND)
                                         .contentType(MediaType.APPLICATION_JSON)

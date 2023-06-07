@@ -68,9 +68,8 @@ public class AuthService {
         // check if user has registered before.
         try {
             authRepo.getUserByEmail(email);
-            // if this doesn't trip the exception...
             log.error("user already exists, aborting registration");
-            throw new RegisteringUserFailedException();
+            // throw new RegisteringUserFailedException();
         } catch (EmptyResultDataAccessException e) {
             log.info("AuthSvc>>> user with email %s does not exist. Making new Acc..."
                     .formatted(email));
@@ -149,6 +148,7 @@ public class AuthService {
             Account account = new Account();
             account.setCharacterDetails(charaRepo.getCharacterByUserId(userid));
             account.setCurrentpet(charaRepo.getPetByUserid(userid));
+            account.setUser(user);
             return Optional.of(account);
         } else {
             log.error("user doesn't exist");
@@ -160,7 +160,8 @@ public class AuthService {
         return authRepo.getUserByEmail(email);
     }
 
-    public JsonObject confirmUserEmailWithCode(JsonObject jsonObj)
+    // returns jwt string
+    public String confirmUserEmailWithCode(JsonObject jsonObj)
             throws NullPointerException, ClassCastException, EmailConfirmationException {
         log.info("bodyJ {}", jsonObj.toString());
         try {
@@ -201,7 +202,7 @@ public class AuthService {
         } catch (EmptyResultDataAccessException e) {
             log.error(e.getMessage());
         }
-        log.error("why are you here");
+        log.error("confirmUserEmailWithCode>>> why are you here, something has gone wrong");
         throw new EmailConfirmationException(email);
     }
 

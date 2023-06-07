@@ -34,6 +34,7 @@ public class TaskController {
     private TaskService taskSvc;
 
     // trying to hide the userid from url
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getAllTasks(@RequestBody String userid) {
 

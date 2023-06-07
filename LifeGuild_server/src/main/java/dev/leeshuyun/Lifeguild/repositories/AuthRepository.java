@@ -86,12 +86,12 @@ public class AuthRepository {
         return true;
     }
 
-    public Optional<User> findUserByUserId(String userid) {
+    public User getUserByUserId(String userid) {
         logger.info("AuthRepo>>> finding user by userid={}", userid);
         SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_USER_BY_USERID, userid);
 
         if (!rs.next())
-            return Optional.empty();
+            return new User();
         User user = new User();
         user.setUserid(rs.getString("userid"));
         user.setFirstname(rs.getString("firstname"));
@@ -101,7 +101,7 @@ public class AuthRepository {
         user.setUserpassword(rs.getString("userpassword"));
         user.setUserrole(Role.valueOf(rs.getString("userrole")));
         user.setIsgooglelogin(rs.getBoolean("isgooglelogin"));
-        return Optional.of(user);
+        return user;
     }
 
     // login through telegram

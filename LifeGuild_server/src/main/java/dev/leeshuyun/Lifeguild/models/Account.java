@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Account {
   String userid;
+  User user;
   CharacterDetails characterDetails;
   Pet currentpet; // yes we can only have 1 pet for now
   Task task;

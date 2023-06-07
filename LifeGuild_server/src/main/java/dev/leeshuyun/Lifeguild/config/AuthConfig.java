@@ -20,9 +20,10 @@ public class AuthConfig {
     @Autowired
     AuthRepository authRepo;
 
+    // grab the userid for authentication
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> authRepo.getUserByEmail(username);
+        return userid -> authRepo.getUserByUserId(userid);
     }
 
     // determines what provides the pw encryption and user details

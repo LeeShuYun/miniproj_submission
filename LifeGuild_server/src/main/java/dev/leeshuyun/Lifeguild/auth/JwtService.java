@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import dev.leeshuyun.Lifeguild.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,6 +20,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 
 /*
  * JWT related tasks include creating and decoding the jwt tokens, and checking validity
@@ -30,10 +33,10 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String jwtSecretKey;
 
-    // email is the primary key we use to identify users for this app
-    public String extractUsername(String jwtToken) {
+    // userid is the primary key we use to identify users for this app
+    public String extractUserid(String jwtToken) {
         // pick out the "sub" subject claim, this is usually username, but in our
-        // case is email
+        // case is userid
         return extractClaim(jwtToken, Claims::getSubject);
     }
 
@@ -45,25 +48,24 @@ public class JwtService {
     }
 
     // generate JWT token with only userDetails
-    public JsonObject generateToken(UserDetails userDetails) {
+    public String generateToken(User userDetails) {
         String jwtStr = generateToken(new HashMap<>(), userDetails);
-        JsonObject jwtJson = Json.createObjectBuilder()
-                .add("jwt", jwtStr)
-                .build();
-        return jwtJson;
+        // JsonObjectBuilder jwtJson = Json.createObjectBuilder()
+        // .add("jwt", jwtStr);
+        return jwtStr;
     }
 
     // generate JWT token with extra claims and user details
     // spring always has "username" as primary key
     public String generateToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails) {
+            User userDetails) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getUserid())
                 .setIssuedAt(new Date(System.currentTimeMillis())) // dates for checking if token is expired
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // token is valid for 24hrs
+                .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24))) // token is valid for 24hrs
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact(); // generate the token
     }
@@ -75,10 +77,11 @@ public class JwtService {
     // .builder()
     // }
 
-    // does jwtToken belong to this user
+    // does jwtToken belong to this userid
     public boolean isTokenValid(String jwtToken, UserDetails userDetails) {
-        final String username = extractUsername(jwtToken);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(jwtToken);
+        final String userid = extractUserid(jwtToken);
+        logger.info("isTokenValid>> checking userid {} same as userdetails id {}?", userid, userDetails.getUsername());
+        return (userid.equals(userDetails.getUsername())) && !isTokenExpired(jwtToken);
     }
 
     private boolean isTokenExpired(String jwtToken) {
